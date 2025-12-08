@@ -259,3 +259,31 @@
     height: 45px;
   }
 }
+
+.contact-box {
+    height: 240px;
+    background: #f1f8ff;
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: center;
+}
+
+.contact-box .content {
+    min-height: 90px; /* keeps spacing equal for 1 line vs multi-line content */
+}
+
+.contact-box a {
+    text-decoration: none;
+    color: #000;
+    margin-bottom: 6px;
+    font-size: 16px;
+}
+
+.contact-box p {
+    margin: 4px 0;
+    font-size: 15px;
+}
+

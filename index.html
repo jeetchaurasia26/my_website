@@ -360,6 +360,39 @@
     </div>
   </div>
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+  const SUPABASE_URL = "https://hoeflgkuogjoswflnhwu.supabase.co";
+  const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhvZWZsZ2t1b2dqb3N3ZmxuaHd1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM5NTYwNDYsImV4cCI6MjA3OTUzMjA0Nn0.3DVgzsdpa4C5TYHU6QBNrvOq4K9QKx-HqZ3onHwDi4k";
+
+  // Initialize Supabase client
+  const client = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+  document.getElementById("quoteForm").addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    const payload = {
+      name: document.getElementById("name").value,
+      number: document.getElementById("phone").value,
+      email: document.getElementById("email").value,
+      service: document.getElementById("service").value,
+      country_code: "+91"
+    };
+
+    const { error } = await client.from("contact_form").insert(payload);
+
+    if (error) {
+      console.error(error);
+      alert("❌ Something went wrong! Check console.");
+    } else {
+      alert("✅ Successfully submitted!");
+      document.getElementById("quoteForm").reset();
+    }
+  });
+</script>
+
 <!-- Appointment End -->
 
 
