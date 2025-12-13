@@ -197,8 +197,8 @@
                             <i class="fa fa-2x fa-plane text-white"></i>
                         </div>
                         <h4 class="mb-3">Air Ambulance</h4>
-                        <p class="m-0">Air Medical 24x7 provides 24/7 air ambulance charter services for emergency medical evacuation and
-                    patient transfer worldwide.</p>
+                        <p class="m-0">Air Medical 24X7 provides 24/7 air ambulance charter services, commercial flight stretcher services, 
+                            and worldwide patient transfer for emergency medical evacuation.</p>
                         <a class="btn btn-lg btn-primary rounded-pill" href="air-ambulance.html">
                             <i class="bi bi-arrow-right"></i>
                         </a>
@@ -306,90 +306,148 @@
         <div class="bg-white text-center rounded p-5">
           <h1 class="mb-4">Book Appointment</h1>
 
-          <form id="quoteForm">
+<form id="quoteForm">
 
-            <div class="row g-3 text-start">
+  <div class="row g-3 text-start">
 
-              <!-- Full Name -->
-              <div class="col-12 col-sm-12">
-                <label class="fw-bold mb-1">Full Name</label>
-                <input type="text" id="name" name="name" class="form-control bg-light border-0"
-                  placeholder="Enter your name" required pattern="[A-Za-z ]+" style="height:55px">
-              </div>
+    <!-- Full Name -->
+    <div class="col-12 col-sm-12">
+      <label class="fw-bold mb-1">Full Name</label>
+      <input type="text" id="name" name="name"
+        class="form-control bg-light border-0"
+        placeholder="Enter your name"
+        required pattern="[A-Za-z ]+"
+        style="height:55px">
+    </div>
 
-              <!-- Phone -->
-              <div class="col-12 col-sm-12">
-                <label class="fw-bold mb-1">Phone Number</label>
-                <input type="tel" id="phone" name="phone" class="form-control bg-light border-0"
-                  placeholder="Enter your phone number" required style="height:55px">
-              </div>
+    <!-- Phone -->
+    <div class="col-12 col-sm-12">
+      <label class="fw-bold mb-1">Phone Number</label>
 
-              <!-- Email -->
-              <div class="col-12 col-sm-12">
-                <label class="fw-bold mb-1">Email</label>
-                <input type="email" id="email" name="email" class="form-control bg-light border-0"
-                  placeholder="Enter your email" required style="height:55px">
-              </div>
+      <div class="input-group">
+        <input type="text"
+               id="countryCode"
+               class="form-control bg-light border-0"
+               style="max-width:90px; height:55px;"
+               readonly>
 
-              <!-- Services -->
-              <div class="col-12 col-sm-12">
-                <label class="fw-bold mb-1">Service Required</label>
-                <select id="service" name="service" class="form-select bg-light border-0" required style="height:55px">
-                  <option value="">Select a Service</option>
-                  <option>Air Ambulance</option>
-                  <option>Commercial Flight Stretcher Service</option>
-                  <option>Flight Medical escort</option>
-                  <option>Medical Tourism</option>
-                  <option>Flight Wheelchair Services</option>
-                  <option>Private Medical Charter Jet</option>
-                  <option>Medical Travel Assistance</option>
-                  <option>Organ Transplant Assistance</option>
-                  <option>Overseas Medical Tourism</option>
-                  <option>ECMO Transfer Services</option>
-                  <option>Home Health Care</option>
-                </select>
-              </div>
+        <input type="tel"
+               id="phone"
+               name="phone"
+               class="form-control bg-light border-0"
+               placeholder="Enter your phone number"
+               required
+               style="height:55px">
+      </div>
+    </div>
 
-              <div class="col-12">
-                <button class="btn btn-primary w-100 py-3" type="submit">Make Appointment</button>
-              </div>
+    <!-- Hidden combined phone -->
+    <input type="hidden" name="full_phone" id="full_phone">
 
-            </div>
-          </form>
+    <!-- Email -->
+    <div class="col-12 col-sm-12">
+      <label class="fw-bold mb-1">Email</label>
+      <input type="email" id="email" name="email"
+        class="form-control bg-light border-0"
+        placeholder="Enter your email"
+        required
+        style="height:55px">
+    </div>
+
+    <!-- Services -->
+    <div class="col-12 col-sm-12">
+      <label class="fw-bold mb-1">Service Required</label>
+      <select id="service" name="service"
+        class="form-select bg-light border-0"
+        required style="height:55px">
+        <option value="">Select a Service</option>
+        <option>Air Ambulance</option>
+        <option>Commercial Flight Stretcher Service</option>
+        <option>Flight Medical escort</option>
+        <option>Medical Tourism</option>
+        <option>Flight Wheelchair Services</option>
+        <option>Private Medical Charter Jet</option>
+        <option>Medical Travel Assistance</option>
+        <option>Organ Transplant Assistance</option>
+        <option>Overseas Medical Tourism</option>
+        <option>ECMO Transfer Services</option>
+        <option>Home Health Care</option>
+      </select>
+    </div>
+
+    <div class="col-12">
+      <button class="btn btn-primary w-100 py-3" type="submit">
+        Make Appointment
+      </button>
+    </div>
+
+  </div>
+</form>
+
         </div>
       </div>
 
     </div>
   </div>
 </div>
+<script>
+// Auto-detect country code via IP
+fetch("https://ipapi.co/json/")
+  .then(res => res.json())
+  .then(data => {
+    document.getElementById("countryCode").value =
+      data.country_calling_code || "+1";
+  })
+  .catch(() => {
+    document.getElementById("countryCode").value = "+1";
+  });
 
+// Combine phone on form submit
+document.getElementById("quoteForm").addEventListener("submit", function () {
+  const code = document.getElementById("countryCode").value;
+  const phone = document.getElementById("phone").value;
+  document.getElementById("full_phone").value = code + phone;
+});
+</script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
+
 <script>
-  const SUPABASE_URL = "https://hoeflgkuogjoswflnhwu.supabase.co";
-  const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhvZWZsZ2t1b2dqb3N3ZmxuaHd1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM5NTYwNDYsImV4cCI6MjA3OTUzMjA0Nn0.3DVgzsdpa4C5TYHU6QBNrvOq4K9QKx-HqZ3onHwDi4k";
+  const supabaseUrl = "https://eiqpvuciihwmuznbsyob.supabase.co";
+  const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVpcXB2dWNpaWh3bXV6bmJzeW9iIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjU2MDY1MDcsImV4cCI6MjA4MTE4MjUwN30.fY2QZkNa1nUB1UQxmV8r97WTpB32ocIiVXaHo1coB-c";
 
-  // Initialize Supabase client
-  const client = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  const supabase = window.supabase.createClient(
+    supabaseUrl,
+    supabaseKey
+  );
 
-  document.getElementById("quoteForm").addEventListener("submit", async (event) => {
-    event.preventDefault();
+  document.getElementById("quoteForm").addEventListener("submit", async function (e) {
+    e.preventDefault();
 
-    const payload = {
-      name: document.getElementById("name").value,
-      number: document.getElementById("phone").value,
-      email: document.getElementById("email").value,
-      service: document.getElementById("service").value,
-      country_code: "+91"
-    };
+    const code = document.getElementById("countryCode").value;
+    const phone = document.getElementById("phone").value;
+    const fullPhone = code + phone;
 
-    const { error } = await client.from("contact_form").insert(payload);
+    const name = document.getElementById("name").value;
+    const email = document.getElementById("email").value;
+    const service = document.getElementById("service").value;
+
+    const { error } = await supabase
+      .from("appointments")
+      .insert([
+        {
+          name: name,
+          full_phone: fullPhone,
+          email: email,
+          service: service
+        }
+      ]);
 
     if (error) {
+      alert("❌ Error submitting form");
       console.error(error);
-      alert("❌ Something went wrong! Check console.");
     } else {
-      alert("✅ Successfully submitted!");
+      alert("✅ Appointment submitted successfully!");
       document.getElementById("quoteForm").reset();
     }
   });
