@@ -191,36 +191,175 @@
 </div>
 
             <div class="row justify-content-center position-relative" style="margin-top: -200px; z-index: 1;">
-                <div class="col-lg-8">
-                    <div class="bg-white rounded p-5 m-5 mb-0">
-                        <form>
-                            <div class="row g-3">
-                                <div class="col-12 col-sm-6">
-                                    <input type="text" class="form-control bg-light border-0" placeholder="Your Name"
-                                        style="height: 55px;">
-                                </div>
-                                <div class="col-12 col-sm-6">
-                                    <input type="email" class="form-control bg-light border-0" placeholder="Your Email"
-                                        style="height: 55px;">
-                                </div>
-                                <div class="col-12">
-                                    <input type="text" class="form-control bg-light border-0" placeholder="Subject"
-                                        style="height: 55px;">
-                                </div>
-                                <div class="col-12">
-                                    <textarea class="form-control bg-light border-0" rows="5"
-                                        placeholder="Message"></textarea>
-                                </div>
-                                <div class="col-12">
-                                    <button class="btn btn-primary w-100 py-3" type="submit">Send Message</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
+  <div class="col-lg-8">
+    <div class="bg-white rounded p-5 m-5 mb-0">
+
+      <!-- Contact / Appointment Form -->
+      <form id="quoteForm">
+
+        <div class="row g-3">
+
+          <!-- Full Name -->
+          <div class="col-12 col-sm-6">
+            <input
+              type="text"
+              id="name"
+              class="form-control bg-light border-0"
+              placeholder="Your Name"
+              required
+              pattern="[A-Za-z ]+"
+              style="height:55px;">
+          </div>
+
+          <!-- Email -->
+          <div class="col-12 col-sm-6">
+            <input
+              type="email"
+              id="email"
+              class="form-control bg-light border-0"
+              placeholder="Your Email"
+              required
+              style="height:55px;">
+          </div>
+
+          <!-- Phone -->
+          <div class="col-12">
+            <div class="input-group">
+              <input
+                type="text"
+                id="countryCode"
+                class="form-control bg-light border-0"
+                style="max-width:90px; height:55px;"
+                readonly>
+
+              <input
+                type="tel"
+                id="phone"
+                class="form-control bg-light border-0"
+                placeholder="Your Phone Number"
+                required
+                style="height:55px;">
             </div>
+          </div>
+
+          <!-- Service -->
+          <div class="col-12">
+            <select
+              id="service"
+              class="form-select bg-light border-0"
+              required
+              style="height:55px;">
+              <option value="">Select a Service</option>
+              <option>Air Ambulance</option>
+              <option>Commercial Flight Stretcher Service</option>
+              <option>Flight Medical Escort</option>
+              <option>Medical Tourism</option>
+              <option>Flight Wheelchair Services</option>
+              <option>Private Medical Charter Jet</option>
+              <option>Medical Travel Assistance</option>
+              <option>Organ Transplant Assistance</option>
+              <option>Overseas Medical Tourism</option>
+              <option>ECMO Transfer Services</option>
+              <option>Home Health Care</option>
+            </select>
+          </div>
+
+          <!-- Submit -->
+          <div class="col-12">
+            <button class="btn btn-primary w-100 py-3" type="submit">
+              Send Message
+            </button>
+          </div>
+
         </div>
+      </form>
+      <!-- End Form -->
+
     </div>
+  </div>
+</div>
+
+<!-- Country Code Auto Detect -->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const countryInput = document.getElementById("countryCode");
+  if (!countryInput) return;
+
+  // Default fallback
+  countryInput.value = "+1";
+
+  // Try ipapi first
+  fetch("https://ipapi.co/json/")
+    .then(res => res.json())
+    .then(data => {
+      if (data && data.country_calling_code) {
+        countryInput.value = data.country_calling_code;
+      }
+    })
+    .catch(() => {
+      // Try ipwho.is as backup
+      fetch("https://ipwho.is/")
+        .then(res => res.json())
+        .then(data => {
+          if (data && data.calling_code) {
+            countryInput.value = "+" + data.calling_code;
+          }
+        })
+        .catch(() => {
+          // Keep +1 fallback
+          countryInput.value = "+1";
+        });
+    });
+});
+</script>
+
+<!-- Supabase Library -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<!-- Supabase Form Submit -->
+<script>
+  const supabaseUrl = "https://eiqpvuciihwmuznbsyob.supabase.co";
+  const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVpcXB2dWNpaWh3bXV6bmJzeW9iIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjU2MDY1MDcsImV4cCI6MjA4MTE4MjUwN30.fY2QZkNa1nUB1UQxmV8r97WTpB32ocIiVXaHo1coB-c";
+
+  const supabase = window.supabase.createClient(
+    supabaseUrl,
+    supabaseKey
+  );
+
+  document.getElementById("quoteForm").addEventListener("submit", async function (e) {
+    e.preventDefault();
+
+    const fullPhone =
+      document.getElementById("countryCode").value +
+      document.getElementById("phone").value;
+
+    const name = document.getElementById("name").value;
+    const email = document.getElementById("email").value;
+    const service = document.getElementById("service").value;
+
+    const { error } = await supabase
+      .from("appointments")
+      .insert([
+        {
+          name: name,
+          full_phone: fullPhone,
+          email: email,
+          service: service
+        }
+      ]);
+
+    if (error) {
+      alert("❌ Error submitting form");
+      console.error(error);
+    } else {
+      alert("✅ Thank you! Our team will contact you soon.");
+      document.getElementById("quoteForm").reset();
+    }
+  });
+</script>
+
+<!-- Contact End -->
+
     <!-- Contact End -->
 
 
@@ -262,25 +401,27 @@
                     <h4 class="d-inline-block text-primary text-uppercase border-bottom border-5 border-secondary mb-4">
                         Quick Links</h4>
                     <div class="d-flex flex-column justify-content-start">
-                        <a class="text-light mb-2" href="#!"><i class="fa fa-angle-right me-2"></i>Home</a>
-                        <a class="text-light mb-2" href="#!"><i class="fa fa-angle-right me-2"></i>About Us</a>
-                        <a class="text-light mb-2" href="#!"><i class="fa fa-angle-right me-2"></i>Our Services</a>
-                        <a class="text-light mb-2" href="#!"><i class="fa fa-angle-right me-2"></i>Carrer</a>
-                        <a class="text-light mb-2" href="#!"><i class="fa fa-angle-right me-2"></i>Latest Blog</a>
-                        <a class="text-light" href="#!"><i class="fa fa-angle-right me-2"></i>Contact Us</a>
-                        <a class="text-light" href="#!"><i class="fa fa-angle-right me-2"></i>Contact Us</a>
+                        <a class="text-light mb-2" href="index.html"><i class="fa fa-angle-right me-2"></i>Home</a>
+                        <a class="text-light mb-2" href="about.html"><i class="fa fa-angle-right me-2"></i>About Us</a>
+                        <a class="text-light mb-2" href="#!"><i class="fa fa-angle-right me-2"></i>Career</a>
+                        <a class="text-light mb-2" href="blog.html"><i class="fa fa-angle-right me-2"></i>Latest Blog</a>
+                        <a class="text-light mb-2" href="terms-and-conditions.html"><i class="fa fa-angle-right me-2"></i>Terms & Condition</a>
+                        <a class="text-light mb-2" href="privacy-policy.html"><i class="fa fa-angle-right me-2"></i>Privacy Policy</a>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6">
                     <h4 class="d-inline-block text-primary text-uppercase border-bottom border-5 border-secondary mb-4">
                         Popular Links</h4>
                     <div class="d-flex flex-column justify-content-start">
-                        <a class="text-light mb-2" href="#!"><i class="fa fa-angle-right me-2"></i>Home</a>
-                        <a class="text-light mb-2" href="#!"><i class="fa fa-angle-right me-2"></i>About Us</a>
-                        <a class="text-light mb-2" href="#!"><i class="fa fa-angle-right me-2"></i>Our Services</a>
-                        <a class="text-light mb-2" href="#!"><i class="fa fa-angle-right me-2"></i>Carrer</a>
-                        <a class="text-light mb-2" href="#!"><i class="fa fa-angle-right me-2"></i>Latest Blog</a>
-                        <a class="text-light" href="#!"><i class="fa fa-angle-right me-2"></i>Contact Us</a>
+                        <a class="text-light mb-2" href="air-ambulance.html"><i class="fa fa-angle-right me-2"></i>Air Ambulance</a>
+                        <a class="text-light mb-2" href="air-ambulance-charters.html"><i class="fa fa-angle-right me-2"></i>Air Ambulance Charter</a>
+                        <a class="text-light mb-2" href="commercial-flight-stretcher.html"><i class="fa fa-angle-right me-2"></i>Commercial Flight Stretcher</a>
+                        <a class="text-light mb-2" href="flight-medical-escort-service.html"><i class="fa fa-angle-right me-2"></i>Flight Medical Escort Services</a>
+                        <a class="text-light" href="hospital-acceptance.html"><i class="fa fa-angle-right me-2"></i>Hospital Acceptance</a>
+                        <a class="text-light" href="doctor-appointment.html"><i class="fa fa-angle-right me-2"></i>Doctor Appointment</a>
+                        <a class="text-light" href="second-opinion-services.html"><i class="fa fa-angle-right me-2"></i>Second Opinion Services</a>
+                        <a class="text-light" href="custom-medical-packages.html"><i class="fa fa-angle-right me-2"></i>Custom Medical Packages</a>
+                        <a class="text-light" href="country.html"><i class="fa fa-angle-right me-2"></i>Global Pages</a>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6">
