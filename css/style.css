@@ -289,3 +289,38 @@
 
 
 
+/* Footer World Map */
+.footer-world-map {
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 2px solid rgba(255,255,255,0.4); /* matches your marked box */
+    border-radius: 6px;
+    background: transparent;
+}
+
+.footer-world-map img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    display: block;
+}
+
+/* Tablet */
+@media (max-width: 991px) {
+    .footer-world-map {
+        max-width: 100%;
+        padding: 15px;
+    }
+}
+
+/* Mobile */
+@media (max-width: 576px) {
+    .footer-world-map {
+        padding: 10px;
+        border-width: 1px;
+    }
+}
+
+
