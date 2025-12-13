@@ -320,29 +320,30 @@ document.addEventListener("DOMContentLoaded", function () {
 <script>
   const supabaseUrl = "https://eiqpvuciihwmuznbsyob.supabase.co";
   const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVpcXB2dWNpaWh3bXV6bmJzeW9iIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjU2MDY1MDcsImV4cCI6MjA4MTE4MjUwN30.fY2QZkNa1nUB1UQxmV8r97WTpB32ocIiVXaHo1coB-c";
-  const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
 
-  const WHATSAPP_NUMBER = "918800027870"; // change if needed
+  const supabase = window.supabase.createClient(
+    supabaseUrl,
+    supabaseKey
+  );
 
   document.getElementById("quoteForm").addEventListener("submit", async function (e) {
     e.preventDefault();
 
-    const code = document.getElementById("countryCode").value;
-    const phone = document.getElementById("phone").value;
-    const fullPhone = code + phone;
+    const fullPhone =
+      document.getElementById("countryCode").value +
+      document.getElementById("phone").value;
 
     const name = document.getElementById("name").value;
     const email = document.getElementById("email").value;
     const service = document.getElementById("service").value;
 
-    // 1️⃣ Save to Supabase
     const { error } = await supabase
       .from("appointments")
       .insert([
         {
           name: name,
-          email: email,
           full_phone: fullPhone,
+          email: email,
           service: service
         }
       ]);
@@ -350,33 +351,12 @@ document.addEventListener("DOMContentLoaded", function () {
     if (error) {
       alert("❌ Error submitting form");
       console.error(error);
-      return;
+    } else {
+      alert("✅ Thank you! Our team will contact you soon.");
+      document.getElementById("quoteForm").reset();
     }
-
-    // 2️⃣ WhatsApp message
-    const message = `
-New Enquiry Received 🚑
-
-Name: ${name}
-Email: ${email}
-Phone: ${fullPhone}
-Service: ${service}
-    `;
-
-    const whatsappURL =
-      "https://wa.me/" +
-      WHATSAPP_NUMBER +
-      "?text=" +
-      encodeURIComponent(message);
-
-    // 3️⃣ Open WhatsApp
-    window.open(whatsappURL, "_blank");
-
-    alert("✅ Thank you! Our team will contact you soon.");
-    document.getElementById("quoteForm").reset();
   });
 </script>
-
 
 <!-- Contact End -->
 
