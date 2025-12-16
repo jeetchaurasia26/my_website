@@ -102,3 +102,8 @@
     
 })(jQuery);
 
+
+function toggleSOS() {
+  const popup = document.getElementById("sos-popup");
+  popup.style.display = popup.style.display === "block" ? "none" : "block";
+}
