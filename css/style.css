@@ -340,7 +340,7 @@
   border-radius: 50px;
   cursor: pointer;
   z-index: 9999;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
 
 /* SOS Popup */
@@ -348,7 +348,7 @@
   display: none;
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.6);
+  background: rgba(0, 0, 0, 0.6);
   z-index: 10000;
 }
 
@@ -377,9 +377,9 @@
   font-weight: 600;
 }
 
-.sos-link.call { background: #000; }
-.sos-link.whatsapp { background: #25d366; }
-.sos-link.email { background: #555; }
+.sos-link.call { background: #038eff; }
+.sos-link.whatsapp { background: #00ff5e; }
+.sos-link.email { background: #f03506; }
 
 .close-sos {
   position: absolute;
@@ -393,4 +393,168 @@
   margin-top: 12px;
   font-size: 13px;
   color: #666;
+}
+
+.iso-badge {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  width: 90px;
+  z-index: 20;
+}
+
+/* Mobile Optimization */
+@media (max-width: 768px) {
+  .iso-badge {
+    width: 65px;
+    bottom: 10px;
+    right: 10px;
+  }
+}
+
+
+.contact-float-left {
+  position: fixed;
+  left: 15px;
+  bottom: 35px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Common Button Style */
+.float-btn {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  color: #fff;
+  text-decoration: none;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+
+
+
+
+/* Transport Selection */
+.transport-options {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+}
+
+.transport-card {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: pointer;
+  background: #f1f8ff;
+  border: 2px solid transparent;
+  transition: .3s;
+  text-align: center;
+}
+
+.transport-card img {
+  width: 100%;
+  height: 110px;
+  object-fit: cover;
+}
+
+.transport-card span {
+  display: block;
+  padding: 10px;
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.transport-card input {
+  display: none;
+}
+
+.transport-card:has(input:checked) {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(26,52,107,.15);
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .transport-options {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+
+
+
+
+/* ================= TOPBAR RED ================= */
+.container-fluid.py-2.border-bottom {
+    background-color: #FB0F0C;
+}
+
+.container-fluid.py-2.border-bottom a,
+.container-fluid.py-2.border-bottom i,
+.container-fluid.py-2.border-bottom span {
+    color: #fff !important;
+}
+
+/* ================= ISO LOGO ================= */
+.logo-img {
+    height: 60px;
+}
+
+@media (max-width: 768px) {
+    .logo-img {
+        height: 45px;
+    }
+}
+
+
+
+
+
+
+/* ================= MOBILE HEADER ACTIONS ================= */
+.mobile-header-actions {
+    display: flex;
+    gap: 10px;
+    margin-right: 10px;
+}
+
+.mobile-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+.mobile-icon.call {
+    background: #008cff;
+}
+
+.mobile-icon.whatsapp {
+    background: #25D366;
+}
+
+/* Hide mobile actions on desktop */
+@media (min-width: 992px) {
+    .mobile-header-actions {
+        display: none;
+    }
+}
+
+/* Clean toggler */
+.navbar-toggler:focus {
+    box-shadow: none;
 }
