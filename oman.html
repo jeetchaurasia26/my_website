@@ -408,13 +408,27 @@ document.getElementById("quoteForm").addEventListener("submit", function () {
   document.getElementById("quoteForm").addEventListener("submit", async function (e) {
     e.preventDefault();
 
+    // Combine phone
     const code = document.getElementById("countryCode").value;
     const phone = document.getElementById("phone").value;
     const fullPhone = code + phone;
+    document.getElementById("full_phone").value = fullPhone;
+
+    // Get radio (transport)
+    const transportInput = document.querySelector(
+      'input[name="transport"]:checked'
+    );
+
+    const transport = transportInput ? transportInput.value : "";
 
     const name = document.getElementById("name").value;
     const email = document.getElementById("email").value;
     const service = document.getElementById("service").value;
+
+    if (!transport) {
+      alert("❌ Please select a service");
+      return;
+    }
 
     const { error } = await supabase
       .from("appointments")
@@ -423,6 +437,7 @@ document.getElementById("quoteForm").addEventListener("submit", function () {
           name: name,
           full_phone: fullPhone,
           email: email,
+          transport: transport,
           service: service
         }
       ]);
@@ -431,7 +446,7 @@ document.getElementById("quoteForm").addEventListener("submit", function () {
       alert("❌ Error submitting form");
       console.error(error);
     } else {
-      alert("✅ Thankyou for your Request Our Team will Conatact you soon!");
+      alert("✅ Thank you! Our team will contact you soon.");
       document.getElementById("quoteForm").reset();
     }
   });

@@ -385,13 +385,27 @@ document.addEventListener("DOMContentLoaded", function () {
   document.getElementById("quoteForm").addEventListener("submit", async function (e) {
     e.preventDefault();
 
-    const fullPhone =
-      document.getElementById("countryCode").value +
-      document.getElementById("phone").value;
+    // Combine phone
+    const code = document.getElementById("countryCode").value;
+    const phone = document.getElementById("phone").value;
+    const fullPhone = code + phone;
+    document.getElementById("full_phone").value = fullPhone;
+
+    // Get radio (transport)
+    const transportInput = document.querySelector(
+      'input[name="transport"]:checked'
+    );
+
+    const transport = transportInput ? transportInput.value : "";
 
     const name = document.getElementById("name").value;
     const email = document.getElementById("email").value;
     const service = document.getElementById("service").value;
+
+    if (!transport) {
+      alert("❌ Please select a service");
+      return;
+    }
 
     const { error } = await supabase
       .from("appointments")
@@ -400,6 +414,7 @@ document.addEventListener("DOMContentLoaded", function () {
           name: name,
           full_phone: fullPhone,
           email: email,
+          transport: transport,
           service: service
         }
       ]);
