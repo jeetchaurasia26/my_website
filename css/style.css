@@ -333,7 +333,7 @@
   position: fixed;
   bottom: 90px;
   right: 20px;
-  background: #d40000;
+  background: #FB0F0C;
   color: #fff;
   font-weight: bold;
   padding: 14px 18px;
@@ -379,7 +379,7 @@
 
 .sos-link.call { background: #038eff; }
 .sos-link.whatsapp { background: #00ff5e; }
-.sos-link.email { background: #f03506; }
+.sos-link.email { background: #FB0F0C; }
 
 .close-sos {
   position: absolute;
@@ -557,4 +557,59 @@
 /* Clean toggler */
 .navbar-toggler:focus {
     box-shadow: none;
+}
+
+
+
+
+
+
+
+
+/* ================= SOCIAL PROOF POPUP ================= */
+.social-proof {
+  position: fixed;
+  bottom: 30px;
+  left: 30px;
+  background: #ffffff;
+  padding: 12px 18px;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  z-index: 9999;
+  max-width: 320px;
+  animation: slideInLeft 0.5s ease;
+}
+
+.social-proof.hidden {
+  display: none;
+}
+
+.proof-icon {
+  font-size: 18px;
+}
+
+@keyframes slideInLeft {
+  from {
+    transform: translateX(-25px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Mobile Optimization */
+@media (max-width: 768px) {
+  .social-proof {
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 20px;
+    width: calc(100% - 40px);
+    font-size: 13px;
+  }
 }

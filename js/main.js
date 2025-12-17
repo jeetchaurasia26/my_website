@@ -109,3 +109,83 @@ function toggleSOS() {
 }
 
 
+
+
+
+
+
+/* ================= MASKED NAME GENERATOR ================= */
+const alphabets = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+function getRandomMaskedName() {
+  const letter = alphabets[Math.floor(Math.random() * alphabets.length)];
+  return letter + "***";
+}
+
+/* ================= WORLDWIDE CITIES ================= */
+const proofCities = [
+
+  // INDIA
+  "Mumbai", "Delhi", "Bangalore", "Chennai", "Hyderabad",
+  "Pune", "Ahmedabad", "Kolkata", "Jaipur", "Kochi",
+
+  // UAE
+  "Dubai", "Abu Dhabi", "Sharjah", "Ajman", "Al Ain",
+
+  // SAUDI ARABIA
+  "Riyadh", "Jeddah", "Dammam", "Mecca", "Medina",
+
+  // QATAR
+  "Doha",
+
+  // KUWAIT
+  "Kuwait City",
+
+  // OMAN
+  "Muscat", "Salalah",
+
+  // BAHRAIN
+  "Manama",
+
+  // OTHER GULF
+  "Al Khobar", "Dhahran",
+
+  // EUROPE
+  "London", "Manchester", "Paris", "Berlin", "Rome",
+
+  // USA
+  "New York", "Los Angeles", "Chicago", "Houston", "Miami",
+
+  // ASIA
+  "Singapore", "Bangkok", "Kuala Lumpur", "Jakarta",
+
+  // AUSTRALIA
+  "Sydney", "Melbourne",
+
+  // AFRICA
+  "Nairobi", "Johannesburg"
+];
+
+/* ================= SOCIAL PROOF FUNCTION ================= */
+function showSocialProof() {
+  const box = document.getElementById("social-proof");
+  const text = document.getElementById("proof-text");
+
+  const name = getRandomMaskedName();
+  const city = proofCities[Math.floor(Math.random() * proofCities.length)];
+
+  text.innerHTML = `<strong>${name}</strong> from <strong>${city}</strong> just requested a free quotation`;
+
+  box.classList.remove("hidden");
+
+  setTimeout(() => {
+    box.classList.add("hidden");
+  }, 5000);
+}
+
+/* Start after page load */
+setTimeout(showSocialProof, 6000);
+
+/* Repeat every 18 seconds */
+setInterval(showSocialProof, 18000);
+
