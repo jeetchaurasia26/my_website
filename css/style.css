@@ -504,17 +504,65 @@
     color: #fff !important;
 }
 
-/* ================= ISO LOGO ================= */
-.logo-img {
-    height: 60px;
+
+
+
+
+/* ================= ISO BADGE ================= */
+.iso-badge {
+    position: absolute;
+    right: 20px;
+    width: 90px;
+    z-index: 10;
 }
 
-@media (max-width: 768px) {
-    .logo-img {
-        height: 45px;
+/* Desktop */
+@media (min-width: 800px) {
+    .iso-badge {
+        bottom: 20px;
     }
 }
 
+/* Mobile & Tablet FIX */
+@media (max-width: 768px) {
+    .iso-badge {
+        width: 60px;
+        bottom: auto;           /* IMPORTANT */
+        top: 65%;               /* Moves ISO UP */
+        right: 15px;
+        transform: translateY(-50%);
+    }
+}
+
+/* Very small phones */
+@media (max-width: 480px) {
+    .iso-badge {
+        width: 52px;
+        top: 60%;
+        right: 10px;
+    }
+}
+
+
+
+
+
+
+/* ================= TOPBAR SPACING FIX ================= */
+.topbar-contact a {
+    padding: 0 10px;
+    font-weight: 500;
+}
+
+.topbar-separator {
+    padding: 0 10px;
+    opacity: 0.8;
+}
+
+.whatsapp-top-btn {
+    color: #fff !important;
+    text-decoration: none;
+}
 
 
 
@@ -612,4 +660,38 @@
     width: calc(100% - 40px);
     font-size: 13px;
   }
+}
+
+
+
+
+/* ================= CENTER MENU WHATSAPP (PC) ================= */
+.menu-whatsapp {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 5;
+}
+
+.whatsapp-center-btn {
+    background: #25D366;
+    color: #fff;
+    font-weight: 600;
+    padding: 8px 20px;
+    border-radius: 30px;
+    font-size: 15px;
+    border: none;
+    white-space: nowrap;
+}
+
+.whatsapp-center-btn:hover {
+    background: #1ebe5d;
+    color: #fff;
+}
+
+/* HARD HIDE ON MOBILE */
+@media (max-width: 991px) {
+    .menu-whatsapp {
+        display: none !important;
+    }
 }
