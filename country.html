@@ -38,21 +38,26 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-6 text-center text-lg-start mb-2 mb-lg-0">
-                    <div class="d-inline-flex align-items-center">
-                        <a class="text-decoration-none text-body pe-3" href="tel:+971565542001"><i
-                                class="bi bi-telephone me-2"></i>+971 56 554 2001</a>
-                        <span class="text-body">|</span>
+                    <div class="d-inline-flex align-items-center topbar-contact">
+    
+    <a class="text-decoration-none text-body" href="tel:+971565542001">
+        <i class="bi bi-telephone me-2"></i>+971 56 554 2001
+    </a>
 
-                      <a class="whatsapp-top-btn ms-3"
-                      href="https://wa.me/971565542001"
-                        target="_blank">
-                       <i class="fab fa-whatsapp"></i> WhatsApp 
-                        </a>
-                        <span class="text-body">|</span>
+    <span class="topbar-separator">|</span>
 
-                        <a class="text-decoration-none text-body px-3" href="mailto:info@airmedical24x7.com"><i
-                                class="bi bi-envelope me-2"></i>info@airmedical24x7.com</a>
-                    </div>
+    <a class="whatsapp-top-btn" href="https://wa.me/971565542001" target="_blank">
+        <i class="fab fa-whatsapp me-2"></i>WhatsApp
+    </a>
+
+    <span class="topbar-separator">|</span>
+
+    <a class="text-decoration-none text-body" href="mailto:info@airmedical24x7.com">
+        <i class="bi bi-envelope me-2"></i>info@airmedical24x7.com
+    </a>
+
+</div>
+
                 </div>
                 <div class="col-md-6 text-center text-lg-end">
                     <div class="d-inline-flex align-items-center">
@@ -88,6 +93,13 @@
             <a class="navbar-brand" href="index.html">
                 <img src="img/air-medical-logo.png" alt="Air Medical 24X7" class="logo-img">
             </a>
+
+          <!-- CENTER WHATSAPP (PC ONLY) -->
+    <div class="menu-whatsapp d-none d-lg-flex">
+        <a href="https://wa.me/971565542001" target="_blank" class="btn whatsapp-center-btn">
+            <i class="fab fa-whatsapp me-2"></i> WhatsApp
+        </a>
+    </div>
 
             <!-- Mobile Call + WhatsApp (ONLY mobile/tablet) -->
             <div class="mobile-header-actions d-lg-none">
@@ -136,7 +148,10 @@
 <!-- Navbar End -->
 
 
-    <!-- SOS Popup -->
+    <!-- SOS Emergency Button -->
+<div id="sos-btn" onclick="toggleSOS()">🚨 SOS</div>
+
+<!-- SOS Popup -->
 <div id="sos-popup">
   <div class="sos-content">
     <span class="close-sos" onclick="toggleSOS()">×</span>
@@ -149,6 +164,7 @@
     <p class="sos-note">Available 24×7 Worldwide</p>
   </div>
 </div>
+<!-- SOS Popup -->
 
 
     <!-- Search Start -->

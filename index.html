@@ -148,6 +148,28 @@
 <!-- Navbar End -->
 
 
+    <!-- SOS Emergency Button -->
+<div id="sos-btn" onclick="toggleSOS()">🚨 SOS</div>
+
+<!-- SOS Popup -->
+<div id="sos-popup">
+  <div class="sos-content">
+    <span class="close-sos" onclick="toggleSOS()">×</span>
+    <h3>Emergency Assistance</h3>
+
+    <a href="tel:+971565542001" class="sos-link call">📞 Call Now</a>
+    <a href="https://wa.me/971565542001" target="_blank" class="sos-link whatsapp">💬 WhatsApp Chat</a>
+    <a href="mailto:info@airmedical24x7.com" class="sos-link email">✉️ Email Support</a>
+
+    <p class="sos-note">Available 24×7 Worldwide</p>
+  </div>
+</div>
+<!-- SOS Popup -->
+
+    <!-- ISO BADGE (INSIDE HERO) -->
+    <img src="img/issso.png" class="iso-badge" alt="ISO Certified Company">
+<!-- END ISO BADGE (INSIDE HERO) -->
+
 
     <!-- Hero Start -->
     <div class="container-fluid bg-primary py-5 mb-5 hero-header">
@@ -166,29 +188,6 @@
         </div>
     </div>
     <!-- Hero End -->
-
-    <!-- SOS Emergency Button -->
-<div id="sos-btn" onclick="toggleSOS()">🚨 SOS</div>
-
-<!-- SOS Popup -->
-<div id="sos-popup">
-  <div class="sos-content">
-    <span class="close-sos" onclick="toggleSOS()">×</span>
-    <h3>Emergency Assistance</h3>
-
-    <a href="tel:+971565542001" class="sos-link call">📞 Call Now</a>
-    <a href="https://wa.me/971565542001" target="_blank" class="sos-link whatsapp">💬 WhatsApp Chat</a>
-    <a href="mailto:info@airmedical24x7.com" class="sos-link email">✉️ Email Support</a>
-
-    <p class="sos-note">Available 24×7 Worldwide</p>
-  </div>
-</div>
-
-
-    <!-- ISO BADGE (INSIDE HERO) -->
-    <img src="img/issso.png" class="iso-badge" alt="ISO Certified Company">
-
-
 
 
     <!-- About Start -->
@@ -428,19 +427,19 @@
   <div class="transport-options">
     <label class="transport-card">
       <input type="radio" name="transport" value="Air Ambulance">
-      <img src="img/air-ambulance-medevac.avif" alt="Air Ambulance">
+      <img src="img/air-ambulance-.jpg" alt="Air Ambulance">
       <span>Air Ambulance</span>
     </label>
 
     <label class="transport-card">
       <input type="radio" name="transport" value="Medical Escort">
-      <img src="img/medical-scort.avif" alt="Medical Escort">
+      <img src="img/air-ambulance-services.png" alt="Medical Escort">
       <span>Commercial Flight Stretcher Service</span>
     </label>
 
     <label class="transport-card">
       <input type="radio" name="transport" value="Road Ambulance">
-      <img src="img/road-ambulance.avif" alt="Road Ambulance">
+      <img src="img/medical-tourism.png" alt="Road Ambulance">
       <span>Medical Tourism</span>
     </label>
   </div>
@@ -455,7 +454,6 @@
         class="form-select bg-light border-0"
         required style="height:55px">
         <option value="">Select a Service</option>
-        <option>Air Ambulance</option>
         <option>Flight Medical escort</option>
         <option>Flight Wheelchair Services</option>
         <option>Private Medical Charter Jet</option>
@@ -516,13 +514,27 @@ document.getElementById("quoteForm").addEventListener("submit", function () {
   document.getElementById("quoteForm").addEventListener("submit", async function (e) {
     e.preventDefault();
 
+    // Combine phone
     const code = document.getElementById("countryCode").value;
     const phone = document.getElementById("phone").value;
     const fullPhone = code + phone;
+    document.getElementById("full_phone").value = fullPhone;
+
+    // Get radio (transport)
+    const transportInput = document.querySelector(
+      'input[name="transport"]:checked'
+    );
+
+    const transport = transportInput ? transportInput.value : "";
 
     const name = document.getElementById("name").value;
     const email = document.getElementById("email").value;
     const service = document.getElementById("service").value;
+
+    if (!transport) {
+      alert("❌ Please select a service");
+      return;
+    }
 
     const { error } = await supabase
       .from("appointments")
@@ -531,6 +543,7 @@ document.getElementById("quoteForm").addEventListener("submit", function () {
           name: name,
           full_phone: fullPhone,
           email: email,
+          transport: transport,
           service: service
         }
       ]);
@@ -539,11 +552,12 @@ document.getElementById("quoteForm").addEventListener("submit", function () {
       alert("❌ Error submitting form");
       console.error(error);
     } else {
-      alert("✅ Thankyou for your Request Our Team will Conatact you soon!");
+      alert("✅ Thank you! Our team will contact you soon.");
       document.getElementById("quoteForm").reset();
     }
   });
 </script>
+
 
 <!-- ================= SOCIAL PROOF POPUP ================= -->
 <div id="social-proof" class="social-proof hidden">
