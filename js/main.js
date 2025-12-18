@@ -113,68 +113,71 @@ function toggleSOS() {
 
 
 
+/* ================= NAME + COUNTRY DATA ================= */
 
-/* ================= MASKED NAME GENERATOR ================= */
-const alphabets = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-
-function getRandomMaskedName() {
-  const letter = alphabets[Math.floor(Math.random() * alphabets.length)];
-  return letter + "***";
-}
-
-/* ================= WORLDWIDE CITIES ================= */
-const proofCities = [
-
-  // INDIA
-  "Mumbai", "Delhi", "Bangalore", "Chennai", "Hyderabad",
-  "Pune", "Ahmedabad", "Kolkata", "Jaipur", "Kochi",
-
-  // UAE
-  "Dubai", "Abu Dhabi", "Sharjah", "Ajman", "Al Ain",
-
-  // SAUDI ARABIA
-  "Riyadh", "Jeddah", "Dammam", "Mecca", "Medina",
-
-  // QATAR
-  "Doha",
-
-  // KUWAIT
-  "Kuwait City",
-
-  // OMAN
-  "Muscat", "Salalah",
-
-  // BAHRAIN
-  "Manama",
-
-  // OTHER GULF
-  "Al Khobar", "Dhahran",
-
-  // EUROPE
-  "London", "Manchester", "Paris", "Berlin", "Rome",
-
-  // USA
-  "New York", "Los Angeles", "Chicago", "Houston", "Miami",
-
-  // ASIA
-  "Singapore", "Bangkok", "Kuala Lumpur", "Jakarta",
-
-  // AUSTRALIA
-  "Sydney", "Melbourne",
-
-  // AFRICA
-  "Nairobi", "Johannesburg"
+const regions = [
+  {
+    country: "India",
+    cities: ["Mumbai", "Delhi", "Bangalore", "Chennai", "Hyderabad", "Pune", "Kochi"],
+    maleNames: ["Rahul", "Amit", "Suresh", "Vikram", "Rohit", "Ankit"],
+    femaleNames: ["Priya", "Neha", "Anjali", "Kavita", "Pooja", "Sneha"]
+  },
+  {
+    country: "UAE",
+    cities: ["Dubai", "Abu Dhabi", "Sharjah", "Ajman"],
+    maleNames: ["Mohammed", "Ahmed", "Hassan", "Omar", "Yusuf"],
+    femaleNames: ["Aisha", "Fatima", "Zainab", "Maryam", "Noor"]
+  },
+  {
+    country: "Saudi Arabia",
+    cities: ["Riyadh", "Jeddah", "Dammam"],
+    maleNames: ["Abdullah", "Khalid", "Fahad", "Salman", "Nasser"],
+    femaleNames: ["Reem", "Huda", "Laila", "Amal", "Sara"]
+  },
+  {
+    country: "USA",
+    cities: ["New York", "Los Angeles", "Chicago", "Houston", "Miami"],
+    maleNames: ["John", "Michael", "David", "James", "Robert"],
+    femaleNames: ["Emily", "Jessica", "Sarah", "Ashley", "Olivia"]
+  },
+  {
+    country: "UK",
+    cities: ["London", "Manchester", "Birmingham"],
+    maleNames: ["Oliver", "Harry", "Jack", "George"],
+    femaleNames: ["Amelia", "Isla", "Sophia", "Charlotte"]
+  }
 ];
 
+/* ================= HELPER FUNCTIONS ================= */
+
+function maskName(name) {
+  if (name.length <= 3) return name[0] + "***";
+  return name.substring(0, 3) + "***";
+}
+
+function getRandomItem(arr) {
+  return arr[Math.floor(Math.random() * arr.length)];
+}
+
 /* ================= SOCIAL PROOF FUNCTION ================= */
+
 function showSocialProof() {
   const box = document.getElementById("social-proof");
   const text = document.getElementById("proof-text");
 
-  const name = getRandomMaskedName();
-  const city = proofCities[Math.floor(Math.random() * proofCities.length)];
+  const region = getRandomItem(regions);
+  const gender = Math.random() > 0.5 ? "male" : "female";
 
-  text.innerHTML = `<strong>${name}</strong> from <strong>${city}</strong> just requested a free quotation`;
+  const name = gender === "male"
+    ? getRandomItem(region.maleNames)
+    : getRandomItem(region.femaleNames);
+
+  const city = getRandomItem(region.cities);
+
+  text.innerHTML = `
+    <strong>${maskName(name)}</strong> from 
+    <strong>${city}</strong> just requested a free quotation
+  `;
 
   box.classList.remove("hidden");
 
@@ -183,9 +186,8 @@ function showSocialProof() {
   }, 5000);
 }
 
-/* Start after page load */
-setTimeout(showSocialProof, 6000);
+/* ================= AUTO RUN ================= */
 
-/* Repeat every 18 seconds */
+setTimeout(showSocialProof, 6000);
 setInterval(showSocialProof, 18000);
 
