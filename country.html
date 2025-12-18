@@ -247,24 +247,26 @@
                     
                     <!-- FORM CODE START -->
 
-                    <form id="quoteFormSecondary">
+<!-- ================= FORM ================= -->
+<form id="quoteFormSecondary">
 
   <div class="row g-3 text-start">
 
     <!-- Full Name -->
-    <div class="col-12 col-sm-12">
+    <div class="col-12">
       <label class="fw-bold mb-1">Full Name</label>
-      <input type="text" id="name" name="name"
-        class="form-control bg-light border-0"
-        placeholder="Enter your name"
-        required pattern="[A-Za-z ]+"
-        style="height:55px">
+      <input type="text"
+             id="name"
+             class="form-control bg-light border-0"
+             placeholder="Enter your name"
+             required
+             pattern="[A-Za-z ]+"
+             style="height:55px">
     </div>
 
     <!-- Phone -->
-    <div class="col-12 col-sm-12">
+    <div class="col-12">
       <label class="fw-bold mb-1">Phone Number</label>
-
       <div class="input-group">
         <input type="text"
                id="countryCode"
@@ -274,7 +276,6 @@
 
         <input type="tel"
                id="phone"
-               name="phone"
                class="form-control bg-light border-0"
                placeholder="Enter your phone number"
                required
@@ -282,27 +283,26 @@
       </div>
     </div>
 
-    <!-- Hidden combined phone -->
-    <input type="hidden" name="full_phone" id="full_phone">
-
     <!-- Email -->
-    <div class="col-12 col-sm-12">
+    <div class="col-12">
       <label class="fw-bold mb-1">Email</label>
-      <input type="email" id="email" name="email"
-        class="form-control bg-light border-0"
-        placeholder="Enter your email"
-        required
-        style="height:55px">
+      <input type="email"
+             id="email"
+             class="form-control bg-light border-0"
+             placeholder="Enter your email"
+             required
+             style="height:55px">
     </div>
 
     <!-- Services -->
-    <div class="col-12 col-sm-12">
-      <label class="fw-bold mb-1">More Service</label>
-      <select id="service" name="service"
-        class="form-select bg-light border-0"
-        required style="height:55px">
+    <div class="col-12">
+      <label class="fw-bold mb-1">Service</label>
+      <select id="service"
+              class="form-select bg-light border-0"
+              required
+              style="height:55px">
         <option value="">Select a Service</option>
-        <option>Air Ambulance</option> 
+        <option>Air Ambulance</option>
         <option>Commercial Flight Stretcher Service</option>
         <option>Medical Tourism</option>
         <option>Flight Wheelchair Services</option>
@@ -324,74 +324,80 @@
   </div>
 </form>
 
-        </div>
-      </div>
-
-    </div>
-  </div>
-</div>
+<!-- ================= COUNTRY CODE AUTO FETCH ================= -->
 <script>
-// Auto-detect country code via IP
-fetch("https://ipapi.co/json/")
-  .then(res => res.json())
-  .then(data => {
-    document.getElementById("countryCode").value =
-      data.country_calling_code || "+1";
-  })
-  .catch(() => {
-    document.getElementById("countryCode").value = "+1";
-  });
+document.addEventListener("DOMContentLoaded", function () {
+  const cc = document.getElementById("countryCode");
+  if (!cc) return;
 
-// Combine phone on form submit
-document.getElementById("quoteFormSecondary").addEventListener("submit", function () {
-  const code = document.getElementById("countryCode").value;
-  const phone = document.getElementById("phone").value;
-  document.getElementById("full_phone").value = code + phone;
+  // Default fallback
+  cc.value = "+1";
+
+  fetch("https://ipapi.co/json/")
+    .then(res => res.json())
+    .then(data => {
+      if (data && data.country_calling_code) {
+        cc.value = data.country_calling_code;
+      }
+    })
+    .catch(() => {
+      cc.value = "+1";
+    });
 });
 </script>
+
+<!-- ================= SUPABASE LIBRARY ================= -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-
+<!-- ================= SUPABASE SUBMIT SCRIPT ================= -->
 <script>
+document.addEventListener("DOMContentLoaded", function () {
+
   const supabaseUrl = "https://eiqpvuciihwmuznbsyob.supabase.co";
-  const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVpcXB2dWNpaWh3bXV6bmJzeW9iIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjU2MDY1MDcsImV4cCI6MjA4MTE4MjUwN30.fY2QZkNa1nUB1UQxmV8r97WTpB32ocIiVXaHo1coB-c";
+  const supabaseKey = "PASTE_YOUR_ANON_PUBLIC_KEY_HERE";
 
   const supabase = window.supabase.createClient(
     supabaseUrl,
     supabaseKey
   );
-  
-  document.getElementById("quoteFormSecondary").addEventListener("submit", async function (e) {
-    e.preventDefault();
 
-    const code = document.getElementById("countryCode").value;
-    const phone = document.getElementById("phone").value;
-    const fullPhone = code + phone;
+  const form = document.getElementById("quoteFormSecondary");
+  if (!form) return;
+
+  form.addEventListener("submit", async function (e) {
+    e.preventDefault();
 
     const name = document.getElementById("name").value;
     const email = document.getElementById("email").value;
     const service = document.getElementById("service").value;
+
+    const fullPhone =
+      document.getElementById("countryCode").value +
+      document.getElementById("phone").value;
 
     const { error } = await supabase
       .from("appointments")
       .insert([
         {
           name: name,
-          full_phone: fullPhone,
           email: email,
+          full_phone: fullPhone,
           service: service
         }
       ]);
 
     if (error) {
-      alert("❌ Error submitting form");
-      console.error(error);
+      console.error("Supabase error:", error);
+      alert("❌ Error submitting form. Please try again.");
     } else {
-      alert("✅ Appointment submitted successfully!");
-      document.getElementById("quoteFormSecondary").reset();
+      alert("✅ Thank you! Our team will contact you soon.");
+      form.reset();
     }
   });
+
+});
 </script>
+
 
 
 <!-- ================= SOCIAL PROOF POPUP ================= -->
