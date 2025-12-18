@@ -345,14 +345,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 </script>
-
-<!-- ================= SUPABASE LIBRARY ================= -->
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-<!-- ================= SUPABASE SUBMIT SCRIPT ================= -->
 <script>
-document.addEventListener("DOMContentLoaded", function () {
-
   const supabaseUrl = "https://eiqpvuciihwmuznbsyob.supabase.co";
   const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVpcXB2dWNpaWh3bXV6bmJzeW9iIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjU2MDY1MDcsImV4cCI6MjA4MTE4MjUwN30.fY2QZkNa1nUB1UQxmV8r97WTpB32ocIiVXaHo1coB-c";
 
@@ -361,43 +354,34 @@ document.addEventListener("DOMContentLoaded", function () {
     supabaseKey
   );
 
-  const form = document.getElementById("quoteFormSecondary");
-  if (!form) return;
-
-  form.addEventListener("submit", async function (e) {
+  document.getElementById("quoteForm").addEventListener("submit", async function (e) {
     e.preventDefault();
 
     const name = document.getElementById("name").value;
+    const phone = document.getElementById("phone").value;
     const email = document.getElementById("email").value;
     const service = document.getElementById("service").value;
-
-    const fullPhone =
-      document.getElementById("countryCode").value +
-      document.getElementById("phone").value;
 
     const { error } = await supabase
       .from("appointments")
       .insert([
         {
           name: name,
+          phone: phone,
           email: email,
-          full_phone: fullPhone,
           service: service
         }
       ]);
 
     if (error) {
-      console.error("Supabase error:", error);
-      alert("❌ Error submitting form. Please try again.");
+      alert("❌ Error submitting form");
+      console.error(error);
     } else {
-      alert("✅ Thank you! Our team will contact you soon.");
-      form.reset();
+      alert("✅ Appointment request submitted successfully");
+      document.getElementById("quoteForm").reset();
     }
   });
-
-});
 </script>
-
 
 
 <!-- ================= SOCIAL PROOF POPUP ================= -->
