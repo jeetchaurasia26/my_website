@@ -343,7 +343,7 @@ fetch("https://ipapi.co/json/")
   });
 
 // Combine phone on form submit
-document.getElementById("quoteForm").addEventListener("submit", function () {
+document.getElementById("quoteFormSecondary").addEventListener("submit", function () {
   const code = document.getElementById("countryCode").value;
   const phone = document.getElementById("phone").value;
   document.getElementById("full_phone").value = code + phone;
@@ -361,7 +361,7 @@ document.getElementById("quoteForm").addEventListener("submit", function () {
     supabaseKey
   );
   
-  document.getElementById("quoteForm").addEventListener("submit", async function (e) {
+  document.getElementById("quoteFormSecondary").addEventListener("submit", async function (e) {
     e.preventDefault();
 
     const code = document.getElementById("countryCode").value;
@@ -388,7 +388,7 @@ document.getElementById("quoteForm").addEventListener("submit", function () {
       console.error(error);
     } else {
       alert("✅ Appointment submitted successfully!");
-      document.getElementById("quoteForm").reset();
+      document.getElementById("quoteFormSecondary").reset();
     }
   });
 </script>
