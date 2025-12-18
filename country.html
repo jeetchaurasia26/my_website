@@ -173,18 +173,267 @@
 </div>
 
 
+<!-- About Start -->
+<div class="container-fluid py-5">
+    <div class="container">
+        <div class="row gx-5 align-items-start">
 
-<!-- Country Search -->
-<div class="row mb-4">
-    <div class="col-lg-6 col-md-8 col-12 mx-auto">
-        <input
-            type="text"
-            id="countrySearch"
-            class="form-control country-search"
-            placeholder="Search country (e.g. UAE, India, Saudi Arabia...)"
-            onkeyup="filterCountries()">
+            <!-- LEFT CONTENT -->
+            <div class="col-lg-7 mb-5 mb-lg-0">
+                <div class="mb-4">
+                    <h3 class="d-inline-block text-primary text-uppercase border-bottom border-5">
+                        Global
+                    </h3>
+                    <h1 class="display-4">
+                        Worldwide Air Ambulance Services in  All Countries| Air Medical 24X7
+                    </h1>
+                </div>
+
+                <p>
+                    As the leader in providing Rapid Response, Air Medical 24X7 offers fast, 
+                    reliable air ambulances and medical evacuation service to 195 Countries assuring safe,
+                    life-saving patient movement all over the globe.
+                </p>
+
+                <div class="row g-3 pt-3">
+                    <div class="col-sm-3 col-6">
+                        <div class="bg-light text-center rounded-circle py-4">
+                            <i class="fa fa-3x fa-user-md text-primary mb-3"></i>
+                            <h6 class="mb-0">
+                                Expert
+                                <small class="d-block text-primary">Medical Escort</small>
+                            </h6>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-3 col-6">
+                        <div class="bg-light text-center rounded-circle py-4">
+                            <i class="fa fa-3x fa-plane text-primary mb-3"></i>
+                            <h6 class="mb-0">
+                                Emergency
+                                <small class="d-block text-primary">Services</small>
+                            </h6>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-3 col-6">
+                        <div class="bg-light text-center rounded-circle py-4">
+                            <i class="fas fa-clock fa-3x text-primary mb-3"></i>
+                            <h6 class="mb-0">
+                                24X7
+                                <small class="d-block text-primary">Support</small>
+                            </h6>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-3 col-6">
+                        <div class="bg-light text-center rounded-circle py-4">
+                            <i class="fas fa-globe fa-3x text-primary mb-3"></i>
+                            <h6 class="mb-0">
+                                Global
+                                <small class="d-block text-primary">Service</small>
+                            </h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RIGHT FORM (REPLACES IMAGE) -->
+            <div class="col-lg-5">
+                <div class="bg-light rounded p-4 p-lg-5 shadow-sm">
+                    <h4 class="text-primary mb-4 text-center">
+                        Get a Free Quotation Worldwide
+                    </h4>
+                    
+                    <!-- FORM CODE START -->
+
+                    <form id="quoteFormSecondary">
+
+  <div class="row g-3 text-start">
+
+    <!-- Full Name -->
+    <div class="col-12 col-sm-12">
+      <label class="fw-bold mb-1">Full Name</label>
+      <input type="text" id="name" name="name"
+        class="form-control bg-light border-0"
+        placeholder="Enter your name"
+        required pattern="[A-Za-z ]+"
+        style="height:55px">
+    </div>
+
+    <!-- Phone -->
+    <div class="col-12 col-sm-12">
+      <label class="fw-bold mb-1">Phone Number</label>
+
+      <div class="input-group">
+        <input type="text"
+               id="countryCode"
+               class="form-control bg-light border-0"
+               style="max-width:90px; height:55px;"
+               readonly>
+
+        <input type="tel"
+               id="phone"
+               name="phone"
+               class="form-control bg-light border-0"
+               placeholder="Enter your phone number"
+               required
+               style="height:55px">
+      </div>
+    </div>
+
+    <!-- Hidden combined phone -->
+    <input type="hidden" name="full_phone" id="full_phone">
+
+    <!-- Email -->
+    <div class="col-12 col-sm-12">
+      <label class="fw-bold mb-1">Email</label>
+      <input type="email" id="email" name="email"
+        class="form-control bg-light border-0"
+        placeholder="Enter your email"
+        required
+        style="height:55px">
+    </div>
+
+    <!-- Services -->
+    <div class="col-12 col-sm-12">
+      <label class="fw-bold mb-1">More Service</label>
+      <select id="service" name="service"
+        class="form-select bg-light border-0"
+        required style="height:55px">
+        <option value="">Select a Service</option>
+        <option>Air Ambulance</option> 
+        <option>Commercial Flight Stretcher Service</option>
+        <option>Medical Tourism</option>
+        <option>Flight Wheelchair Services</option>
+        <option>Private Medical Charter Jet</option>
+        <option>Medical Travel Assistance</option>
+        <option>Organ Transplant Assistance</option>
+        <option>Overseas Medical Tourism</option>
+        <option>ECMO Transfer Services</option>
+        <option>Home Health Care</option>
+      </select>
+    </div>
+
+    <div class="col-12">
+      <button class="btn btn-primary w-100 py-3" type="submit">
+        Get a Free Quotation
+      </button>
+    </div>
+
+  </div>
+</form>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+<script>
+// Auto-detect country code via IP
+fetch("https://ipapi.co/json/")
+  .then(res => res.json())
+  .then(data => {
+    document.getElementById("countryCode").value =
+      data.country_calling_code || "+1";
+  })
+  .catch(() => {
+    document.getElementById("countryCode").value = "+1";
+  });
+
+// Combine phone on form submit
+document.getElementById("quoteForm").addEventListener("submit", function () {
+  const code = document.getElementById("countryCode").value;
+  const phone = document.getElementById("phone").value;
+  document.getElementById("full_phone").value = code + phone;
+});
+</script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+
+<script>
+  const supabaseUrl = "https://eiqpvuciihwmuznbsyob.supabase.co";
+  const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVpcXB2dWNpaWh3bXV6bmJzeW9iIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjU2MDY1MDcsImV4cCI6MjA4MTE4MjUwN30.fY2QZkNa1nUB1UQxmV8r97WTpB32ocIiVXaHo1coB-c";
+
+  const supabase = window.supabase.createClient(
+    supabaseUrl,
+    supabaseKey
+  );
+  
+  document.getElementById("quoteForm").addEventListener("submit", async function (e) {
+    e.preventDefault();
+
+    const code = document.getElementById("countryCode").value;
+    const phone = document.getElementById("phone").value;
+    const fullPhone = code + phone;
+
+    const name = document.getElementById("name").value;
+    const email = document.getElementById("email").value;
+    const service = document.getElementById("service").value;
+
+    const { error } = await supabase
+      .from("appointments")
+      .insert([
+        {
+          name: name,
+          full_phone: fullPhone,
+          email: email,
+          service: service
+        }
+      ]);
+
+    if (error) {
+      alert("❌ Error submitting form");
+      console.error(error);
+    } else {
+      alert("✅ Appointment submitted successfully!");
+      document.getElementById("quoteForm").reset();
+    }
+  });
+</script>
+
+
+<!-- ================= SOCIAL PROOF POPUP ================= -->
+<div id="social-proof" class="social-proof hidden">
+  <span class="proof-icon">🔔</span>
+  <span id="proof-text"></span>
+</div>
+
+                    
+                    <!-- FORM CODE END -->
+
+                </div>
+            </div>
+
+        </div>
     </div>
 </div>
+<!-- About End -->
+
+
+
+<!-- ================= GLOBAL COUNTRY SEARCH ================= -->
+<section class="container country-search-section">
+
+    <div class="row justify-content-center">
+        <div class="col-lg-8 col-md-10 col-12 text-center">
+
+            <h2 class="global-search-title">Global Search</h2>
+
+            <input
+                type="text"
+                id="countrySearch"
+                class="form-control country-search-input"
+                placeholder="Search country (e.g. UAE, India, Saudi Arabia...)"
+                onkeyup="filterCountries()">
+
+        </div>
+    </div>
+
+</section>
+
+
 
 
 <!-- ================= COUNTRIES WE OPERATE ================= -->

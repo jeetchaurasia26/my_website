@@ -195,16 +195,14 @@ setInterval(showSocialProof, 18000);
 
 function filterCountries() {
     const input = document.getElementById("countrySearch");
-    const filter = input.value.toLowerCase();
+    const filter = input.value.toLowerCase().trim();
     const cards = document.querySelectorAll(".country-card");
 
     cards.forEach(card => {
-        const countryName = card.querySelector("h4").innerText.toLowerCase();
-        if (countryName.includes(filter)) {
-            card.parentElement.style.display = "";
-        } else {
-            card.parentElement.style.display = "none";
-        }
+        const text = card.innerText.toLowerCase();
+        const col = card.closest(".col-lg-3");
+
+        col.style.display = text.includes(filter) ? "" : "none";
     });
 }
 
