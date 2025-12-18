@@ -191,3 +191,20 @@ function showSocialProof() {
 setTimeout(showSocialProof, 6000);
 setInterval(showSocialProof, 18000);
 
+
+
+function filterCountries() {
+    const input = document.getElementById("countrySearch");
+    const filter = input.value.toLowerCase();
+    const cards = document.querySelectorAll(".country-card");
+
+    cards.forEach(card => {
+        const countryName = card.querySelector("h4").innerText.toLowerCase();
+        if (countryName.includes(filter)) {
+            card.parentElement.style.display = "";
+        } else {
+            card.parentElement.style.display = "none";
+        }
+    });
+}
+

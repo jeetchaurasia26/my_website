@@ -697,22 +697,20 @@
 }
 
 
-
-
-
 /* ================= COUNTRY GRID ================= */
 .country-card {
     position: relative;
     display: block;
+    height: 220px;
     border-radius: 16px;
     overflow: hidden;
-    height: 220px;
     box-shadow: 0 10px 25px rgba(0,0,0,0.12);
-    transition: transform .3s ease;
+    transition: transform .3s ease, box-shadow .3s ease;
 }
 
 .country-card:hover {
     transform: translateY(-6px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.18);
 }
 
 .country-card img {
@@ -721,7 +719,7 @@
     object-fit: cover;
 }
 
-/* Dark Overlay */
+/* Overlay */
 .country-card .overlay {
     position: absolute;
     inset: 0;
@@ -752,7 +750,7 @@
     color: #fff;
 }
 
-/* ================= MOBILE FIX ================= */
+/* Mobile */
 @media (max-width: 576px) {
     .country-card {
         height: 190px;
@@ -763,37 +761,28 @@
     }
 }
 
+/* ================= END COUNTRY GRID ================= */
 
-
-
-
-
-/* ================= HERO BUTTON MOBILE FIX ================= */
-
-.hero-buttons {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 14px;                 /* Space between buttons */
+/* ================= START COUNTRY SEARCH ================= */
+.country-search {
+    padding: 14px 18px;
+    font-size: 16px;
+    border-radius: 50px;
+    border: 2px solid #e1e1e1;
+    transition: border-color 0.3s, box-shadow 0.3s;
 }
 
-/* Mobile view */
-@media (max-width: 768px) {
-    .hero-buttons {
-        flex-direction: column; /* Stack buttons */
-        align-items: center;
-        margin-top: 15px;
-    }
-
-    .hero-buttons .btn {
-        width: 100%;           /* Full-width buttons */
-        max-width: 320px;
-        padding: 14px 20px;
-    }
+.country-search:focus {
+    border-color: #13C5DD; /* your primary color */
+    box-shadow: 0 0 0 4px rgba(19, 197, 221, 0.15);
+    outline: none;
 }
 
-/* Desktop only */
-@media (min-width: 769px) {
-    .hero-buttons {
-        flex-direction: row;
+/* Mobile */
+@media (max-width: 576px) {
+    .country-search {
+        font-size: 15px;
+        padding: 12px 16px;
     }
 }
+/* ================= END COUNTRY SEARCH ================= */
