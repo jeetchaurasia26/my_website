@@ -2,11 +2,162 @@
 <html lang="en">
 
 <head>
+
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+
+    {
+      "@type": "Organization",
+      "@id": "https://www.airmedical24x7.com/#organization",
+      "name": "Air Medical 24X7",
+      "url": "https://www.airmedical24x7.com/",
+      "logo": "https://www.airmedical24x7.com/img/air-medical-logo.png",
+      "description": "Air Medical 24X7 provides 24x7 worldwide air ambulance, medical evacuation, flight medical escort, and emergency patient transfer services.",
+      "sameAs": [
+        "https://www.facebook.com/airmedical24x7/",
+        "https://x.com/airmedical24x7",
+        "https://in.linkedin.com/company/airmedical24x7",
+        "https://www.instagram.com/airmedical24x7/"
+      ],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+971-56-554-2001",
+        "contactType": "Emergency Medical Transport",
+        "areaServed": "Worldwide",
+        "availableLanguage": [
+          { "@type": "Language", "name": "English" },
+          { "@type": "Language", "name": "Hindi" },
+          { "@type": "Language", "name": "Arabic" },
+          { "@type": "Language", "name": "French" },
+          { "@type": "Language", "name": "Spanish" },
+          { "@type": "Language", "name": "Russian" }
+        ]
+      }
+    },
+
+    {
+      "@type": "MedicalOrganization",
+      "@id": "https://www.airmedical24x7.com/#medicalorganization",
+      "name": "Air Medical 24X7",
+      "url": "https://www.airmedical24x7.com/",
+      "medicalSpecialty": [
+        "Emergency",
+        "CriticalCare",
+        "Trauma",
+        "Cardiology",
+        "Neurology"
+      ]
+    },
+
+    {
+      "@type": "EmergencyService",
+      "@id": "https://www.airmedical24x7.com/#emergencyservice",
+      "name": "Air Ambulance & Medical Evacuation Service",
+      "provider": {
+        "@id": "https://www.airmedical24x7.com/#organization"
+      },
+      "areaServed": {
+        "@type": "Place",
+        "name": "Worldwide"
+      },
+      "availableChannel": {
+        "@type": "ServiceChannel",
+        "servicePhone": {
+          "@type": "ContactPoint",
+          "telephone": "+971-56-554-2001",
+          "availableLanguage": [
+            { "@type": "Language", "name": "English" },
+            { "@type": "Language", "name": "Hindi" },
+            { "@type": "Language", "name": "Arabic" },
+            { "@type": "Language", "name": "French" },
+            { "@type": "Language", "name": "Spanish" },
+            { "@type": "Language", "name": "Russian" }
+          ]
+        }
+      }
+    },
+
+    {
+      "@type": "LocalBusiness",
+      "@id": "https://www.airmedical24x7.com/#localbusiness-dubai",
+      "name": "Air Ambulance - Worldwide Air Medical 24X7",
+      "image": "https://www.airmedical24x7.com/img/flight-medical.jpg",
+      "url": "https://www.airmedical24x7.com/",
+      "telephone": "+971-56-554-2001",
+      "priceRange": "$$$",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "310, Garhoud Community, Near Dubai International Airport Terminal-1",
+        "addressLocality": "Dubai",
+        "addressRegion": "Dubai",
+        "addressCountry": "AE"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 25.2401499,
+        "longitude": 55.3469789
+      },
+      "openingHoursSpecification": {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday",
+          "Saturday",
+          "Sunday"
+        ],
+        "opens": "00:00",
+        "closes": "23:59"
+      },
+      "hasMap": "https://www.google.com/maps/place/Air+Ambulance+-+Worldwide+Air+Medical+24x7/@25.2401499,55.3469789,17z"
+    },
+
+    {
+      "@type": "Service",
+      "@id": "https://www.airmedical24x7.com/#airambulanceservice",
+      "name": "24x7 Air Ambulance & Medical Evacuation",
+      "serviceType": [
+        "Air Ambulance",
+        "Medical Evacuation",
+        "Flight Medical Escort",
+        "Commercial Flight Stretcher",
+        "ECMO Transfer"
+      ],
+      "provider": {
+        "@id": "https://www.airmedical24x7.com/#organization"
+      },
+      "areaServed": {
+        "@type": "Place",
+        "name": "Worldwide"
+      }
+    },
+
+    {
+      "@type": "WebSite",
+      "@id": "https://www.airmedical24x7.com/#website",
+      "url": "https://www.airmedical24x7.com/",
+      "name": "Air Medical 24X7",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://www.airmedical24x7.com/?s={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    }
+
+  ]
+}
+</script>
+
     <meta charset="utf-8">
     <title>Air Medical 24X7</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="Air Medical 24X7" name="keywords">
     <meta content="Air Medical 24X7" name="description">
+
 
     <!-- Favicon -->
     <link href="img/airmedicallogo.png" rel="icon">
@@ -33,6 +184,8 @@
 </head>
 
 <body>
+
+    
     <!-- Topbar Start -->
     <div class="container-fluid py-2 border-bottom d-none d-lg-block">
         <div class="container">

@@ -111,8 +111,6 @@ function toggleSOS() {
 
 
 
-
-
 /* ================= NAME + COUNTRY DATA ================= */
 
 const regions = [
