@@ -372,58 +372,57 @@ document.addEventListener("DOMContentLoaded", function () {
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <!-- Supabase Form Submit -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <script>
-document.addEventListener("DOMContentLoaded", function () {
+window.addEventListener("load", function () {
 
-  // 1️⃣ Supabase connection
-  const supabaseUrl = "https://eiqpvuciihwmuznbsyob.supabase.co";
-  const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVpcXB2dWNpaWh3bXV6bmJzeW9iIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjU2MDY1MDcsImV4cCI6MjA4MTE4MjUwN30.fY2QZkNa1nUB1UQxmV8r97WTpB32ocIiVXaHo1coB-c";
+  console.log("✅ Supabase script loaded");
 
-
-  const supabase = window.supabase.createClient(
-    supabaseUrl,
-    supabaseKey
-  );
-
-  // 2️⃣ Form reference
   const form = document.getElementById("quoteForm");
   if (!form) {
-    console.error("quoteForm not found");
+    console.warn("quoteForm not found on this page");
     return;
   }
 
-  // 3️⃣ Submit handler
-  form.addEventListener("submit", async function (e) {
-    e.preventDefault();
+  const supabase = window.supabase.createClient(
+    "https://eiqpvuciihwmuznbsyob.supabase.co",
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVpcXB2dWNpaWh3bXV6bmJzeW9iIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjU2MDY1MDcsImV4cCI6MjA4MTE4MjUwN30.fY2QZkNa1nUB1UQxmV8r97WTpB32ocIiVXaHo1coB-c"
+  );
 
-    const name = document.getElementById("name").value.trim();
-    const email = document.getElementById("email").value.trim();
-    const service = document.getElementById("service").value;
+  form.addEventListener("submit", async function (e) {
+    e.preventDefault(); // 🚨 STOPS URL REDIRECT
+
+    console.log("🚀 Form submission intercepted");
+
     const fullPhone =
       document.getElementById("countryCode").value +
-      document.getElementById("phone").value.trim();
+      document.getElementById("phone").value;
 
-    // Basic validation
-    if (!name || !email || !service || !fullPhone) {
-      alert("❌ Please fill all fields");
-      return;
+    const payload = {
+      name: document.getElementById("name").value,
+      email: document.getElementById("email").value,
+      full_phone: fullPhone,
+      service: document.getElementById("service").value
+    };
+
+    // OPTIONAL transport (only if exists)
+    const transportInput = document.querySelector(
+      'input[name="transport"]:checked'
+    );
+    if (transportInput) {
+      payload.transport = transportInput.value;
     }
 
-    // 4️⃣ Insert into Supabase
+    console.log("📦 Payload:", payload);
+
     const { error } = await supabase
       .from("appointments")
-      .insert([
-        {
-          name: name,
-          email: email,
-          full_phone: fullPhone,
-          service: service
-        }
-      ]);
+      .insert([payload]);
 
     if (error) {
-      console.error("Supabase error:", error);
-      alert("❌ Error submitting form: " + error.message);
+      console.error("❌ Supabase error:", error);
+      alert("Error: " + error.message);
     } else {
       alert("✅ Thank you! Our team will contact you soon.");
       form.reset();
@@ -432,6 +431,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 });
 </script>
+
 
 
 <!-- Contact End -->
