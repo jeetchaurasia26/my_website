@@ -842,3 +842,20 @@
 }
 
 /* ================= END COUNTRY SEARCH ================= */
+
+
+/* Footer Payment Methods */
+.footer-payment-img {
+    max-width: 920px;
+    width: 100%;
+    height: auto;
+    display: inline-block;
+}
+
+/* Mobile */
+@media (max-width: 576px) {
+    .footer-payment-img {
+        max-width: 300px;
+        margin-top: 10px;
+    }
+}
