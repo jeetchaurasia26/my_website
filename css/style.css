@@ -868,3 +868,12 @@
         margin: 10px auto 0;
     }
 }
+
+
+/* Fix CTA button overlap without stretching */
+@media (max-width: 576px) {
+  .hero-header .btn {
+    display: inline-block;
+    margin-bottom: 12px;
+  }
+}
