@@ -538,7 +538,7 @@
 @media (max-width: 480px) {
     .iso-badge {
         width: 52px;
-        top: 60%;
+        top: 40%;
         right: 10px;
     }
 }
@@ -875,5 +875,43 @@
   .hero-header .btn {
     display: inline-block;
     margin-bottom: 12px;
+  }
+}
+
+
+/* ===============================
+   MOBILE HERO BANNER FIX
+================================ */
+@media (max-width: 767px) {
+
+  /* Fix stretched hero banner */
+  .hero-header {
+    min-height: auto !important;
+    height: auto !important;
+    padding: 0 !important;
+    background-size: cover !important;
+    background-position: center center !important;
+  }
+
+  /* Remove extra inner spacing */
+  .hero-header .container {
+    padding: 0 !important;
+  }
+
+  /* Hide hero text (already desired) */
+  .hero-header .col-lg-8 {
+    display: none !important;
+  }
+
+  /* Remove bottom gap after hero */
+  .hero-header + section,
+  .hero-header + div {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+  }
+}
+@media (max-width: 767px) {
+  .hero-header {
+    height: 220px !important; /* adjust: 180–260px */
   }
 }
