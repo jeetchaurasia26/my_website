@@ -3,9 +3,13 @@
 <head>
   <title>Blog Editor</title>
 
+  <!-- Supabase -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <!-- CKEditor -->
   <script src="https://cdn.ckeditor.com/4.22.1/standard/ckeditor.js"></script>
 
+  <!-- Bootstrap -->
   <link rel="stylesheet" href="../css/bootstrap.min.css">
 </head>
 
@@ -13,69 +17,92 @@
 
 <h2>Create / Edit Blog</h2>
 
-<input id="title" class="form-control mb-3" placeholder="Blog Title">
-<input id="slug" class="form-control mb-3" placeholder="URL Slug (air-ambulance-in-oman)">
-<input id="author" class="form-control mb-3" placeholder="Author Name">
+<!-- SEO -->
+<input id="meta_title" class="form-control mb-2" placeholder="Meta Title (SEO)">
+<textarea id="meta_description" class="form-control mb-3" placeholder="Meta Description (SEO)"></textarea>
 
+<!-- Main fields -->
+<input id="title" class="form-control mb-2" placeholder="Blog Title">
+<input id="slug" class="form-control mb-2" placeholder="URL Slug (air-ambulance-in-oman)">
+<input id="author" class="form-control mb-2" placeholder="Author Name">
+
+<!-- Category -->
+<select id="category" class="form-control mb-3">
+  <option value="general">General Blog</option>
+  <option value="case-study">Case Study</option>
+</select>
+
+<!-- Excerpt & Image -->
+<textarea id="excerpt" class="form-control mb-2" placeholder="Short Excerpt (used in blog listing)"></textarea>
+<input id="featured_image" class="form-control mb-3" placeholder="Featured Image URL">
+
+<!-- Status -->
 <select id="status" class="form-control mb-3">
   <option value="draft">Save as Draft</option>
   <option value="published">Publish</option>
 </select>
 
+<!-- Content -->
 <textarea id="content"></textarea>
-
 
 <button class="btn btn-primary mt-3" onclick="saveBlog()">Save Blog</button>
 
 <script>
-const supabaseClient = supabase.createClient(
+  const supabaseClient = supabase.createClient(
     "https://eiqpvuciihwmuznbsyob.supabase.co",
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVpcXB2dWNpaWh3bXV6bmJzeW9iIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjU2MDY1MDcsImV4cCI6MjA4MTE4MjUwN30.fY2QZkNa1nUB1UQxmV8r97WTpB32ocIiVXaHo1coB-c"
-);
+  );
 
-// Initialize editor
-CKEDITOR.replace("content");
+  // Initialize CKEditor
+  CKEDITOR.replace("content");
 
-// 🔐 AUTH CHECK ON PAGE LOAD
-(async () => {
-  const { data: { user } } = await supabaseClient.auth.getUser();
+  // 🔐 Auth check
+  (async () => {
+    const { data: { user } } = await supabaseClient.auth.getUser();
+    if (!user) {
+      window.location.href = "login.html";
+    }
+  })();
 
-  if (!user) {
-    window.location.href = "login.html";
+  async function saveBlog() {
+    const { data: { user } } = await supabaseClient.auth.getUser();
+    if (!user) {
+      alert("Unauthorized access");
+      return;
+    }
+
+    const { error } = await supabaseClient.from("blogs").insert({
+      title: document.getElementById("title").value,
+      slug: document.getElementById("slug").value,
+      author: document.getElementById("author").value,
+      meta_title: document.getElementById("meta_title").value,
+      meta_description: document.getElementById("meta_description").value,
+      excerpt: document.getElementById("excerpt").value,
+      featured_image: document.getElementById("featured_image").value,
+      category: document.getElementById("category").value,
+      content: CKEDITOR.instances.content.getData(),
+      status: document.getElementById("status").value
+    });
+
+    if (error) {
+      alert(error.message);
+    } else {
+      alert("Blog saved successfully");
+      location.reload();
+    }
   }
-})();
-
-async function saveBlog() {
-  const { data: { user } } = await supabaseClient.auth.getUser();
-  if (!user) {
-    alert("Unauthorized access");
-    return;
-  }
-
-  const { error } = await supabaseClient.from("blogs").insert({
-    title: document.getElementById("title").value,
-    slug: document.getElementById("slug").value,
-    author: document.getElementById("author").value,
-    content: CKEDITOR.instances.content.getData(),
-    status: document.getElementById("status").value
-  });
-
-  if (error) {
-    alert(error.message);
-  } else {
-    alert("Blog saved successfully");
-    location.reload();
-  }
-}
 </script>
-
 
 <script>
-document.getElementById("title").addEventListener("input", () => {
-  const title = document.getElementById("title").value;
-  document.getElementById("slug").value = title
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/(^-|-$)/g, "");
-});
+  // Auto-generate slug from title
+  document.getElementById("title").addEventListener("input", () => {
+    const title = document.getElementById("title").value;
+    document.getElementById("slug").value = title
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/(^-|-$)/g, "");
+  });
 </script>
+
+</body>
+</html>
