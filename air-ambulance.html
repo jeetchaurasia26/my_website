@@ -3,7 +3,7 @@
 
 <head>
 
-    <script type="application/ld+json">
+<script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@graph": [
@@ -15,21 +15,19 @@
       "alternateName": "Air Medical 24X7 Global Air Ambulance",
       "url": "https://airmedical24x7.com/",
       "logo": "https://airmedical24x7.com/img/air-medical-logo.png",
-      "description": "Air Medical 24X7 is a globally trusted provider of 24/7 air ambulance, medical evacuation, and critical care flight services with worldwide reach.",
-      "areaServed": {
-        "@type": "AdministrativeArea",
-        "name": "Worldwide"
-      },
-      "availableLanguage": "All",
-      "knowsLanguage": [
-        "en","hi","ar","fr","de","es","it","ru","zh","ja","ko","pt","tr","th","id","ms","bn","ur"
+      "description": "Air Medical 24X7 is a globally trusted provider of 24/7 air ambulance, medical evacuation, and critical care flight services.",
+      "sameAs": [
+        "https://www.facebook.com/airmedical24x7/",
+        "https://x.com/airmedical24x7",
+        "https://in.linkedin.com/company/airmedical24x7",
+        "https://www.instagram.com/airmedical24x7/"
       ],
       "contactPoint": {
         "@type": "ContactPoint",
         "telephone": "+971565542001",
         "contactType": "Emergency Air Ambulance",
         "areaServed": "Worldwide",
-        "availableLanguage": "All"
+        "availableLanguage": ["en","hi","ar"]
       }
     },
 
@@ -38,34 +36,73 @@
       "@id": "https://airmedical24x7.com/#medicalorganization",
       "name": "Air Medical 24X7",
       "url": "https://airmedical24x7.com/",
+      "parentOrganization": {
+        "@id": "https://airmedical24x7.com/#organization"
+      },
       "medicalSpecialty": [
-        "Air Ambulance Services",
-        "Emergency Medical Transport",
-        "Critical Care Transfer",
-        "Neonatal Air Ambulance",
-        "International Medical Evacuation"
+        "Emergency Medicine",
+        "Critical Care",
+        "Neonatology",
+        "Aviation Medicine"
       ],
       "areaServed": "Worldwide"
+    },
+
+    {
+      "@type": "Physician",
+      "@id": "https://airmedical24x7.com/#flightmedicalteam",
+      "name": "Air Medical 24X7 Flight Medical Team",
+      "medicalSpecialty": [
+        "Emergency Medicine",
+        "Critical Care",
+        "Neonatology",
+        "Aviation Medicine"
+      ],
+      "worksFor": {
+        "@id": "https://airmedical24x7.com/#medicalorganization"
+      }
+    },
+
+    {
+      "@type": "MedicalProcedure",
+      "@id": "https://airmedical24x7.com/air-ambulance.html#airambulanceprocedure",
+      "name": "Air Ambulance & Medical Evacuation",
+      "procedureType": "Emergency",
+      "howPerformed": "ICU-equipped aircraft with doctors, nurses, ventilators, cardiac monitors and life support systems onboard",
+      "status": "Active"
+    },
+
+    {
+      "@type": "MedicalProcedure",
+      "@id": "https://airmedical24x7.com/air-ambulance.html#neonatal",
+      "name": "Neonatal Air Ambulance",
+      "procedureType": "Critical Care",
+      "howPerformed": "Newborn transported in neonatal incubator with ventilator and pediatric specialists onboard",
+      "status": "Active"
     },
 
     {
       "@type": "MedicalService",
       "@id": "https://airmedical24x7.com/air-ambulance.html#medicalservice",
       "name": "24/7 Emergency Air Ambulance Services",
-      "description": "Worldwide 24/7 emergency air ambulance services including critical care transfer, neonatal evacuation, ICU medical flights, and bed-to-bed medical transport.",
+      "description": "Worldwide 24/7 emergency air ambulance services including ICU flights, neonatal evacuation, and international medical evacuation.",
       "provider": {
         "@id": "https://airmedical24x7.com/#medicalorganization"
-      },
-      "areaServed": {
-        "@type": "AdministrativeArea",
-        "name": "Worldwide"
       },
       "availableChannel": {
         "@type": "ServiceChannel",
         "serviceLocation": {
           "@type": "Place",
-          "name": "Global"
+          "name": "Worldwide"
         }
+      },
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Air Ambulance Services",
+        "itemListElement": [
+          { "@id": "https://airmedical24x7.com/air-ambulance.html#airambulanceprocedure" },
+          { "@id": "https://airmedical24x7.com/air-ambulance.html#neonatal" }
+        ]
       }
     },
 
@@ -73,11 +110,12 @@
       "@type": "WebPage",
       "@id": "https://airmedical24x7.com/air-ambulance.html",
       "url": "https://airmedical24x7.com/air-ambulance.html",
-      "name": "24/7 Emergency Air Ambulance Worldwide | Critical Care Medical Flights",
-      "description": "Air Medical 24X7 provides 24/7 worldwide emergency air ambulance services with ICU-equipped aircraft, expert medical teams, and global medical evacuation support.",
-      "inLanguage": "x-default",
+      "name": "24/7 Emergency Air Ambulance Worldwide",
+      "isPartOf": {
+        "@id": "https://airmedical24x7.com/#organization"
+      },
       "about": {
-        "@id": "https://airmedical24x7.com/#medicalorganization"
+        "@id": "https://airmedical24x7.com/air-ambulance.html#medicalservice"
       }
     },
 
@@ -90,7 +128,7 @@
           "name": "What is an air ambulance?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "An air ambulance is a medically equipped aircraft staffed with doctors and paramedics to transport critically ill or injured patients safely over long distances."
+            "text": "An air ambulance is a medically equipped aircraft used to transport critically ill or injured patients with doctors and medical equipment onboard."
           }
         },
         {
@@ -98,23 +136,7 @@
           "name": "Is Air Medical 24X7 available worldwide?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Yes, Air Medical 24X7 provides 24/7 emergency air ambulance services worldwide, covering domestic and international medical evacuation."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Do air ambulances provide ICU-level care?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Yes, Air Medical 24X7 air ambulances are fully equipped with ICU-grade medical equipment including ventilators, monitors, oxygen systems, and emergency medications."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "How quickly can an air ambulance be arranged?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Air ambulance services can typically be arranged within a few hours after medical assessment and flight clearance, depending on location and urgency."
+            "text": "Yes, Air Medical 24X7 provides 24/7 international and domestic air ambulance services worldwide."
           }
         }
       ]
@@ -124,18 +146,8 @@
       "@type": "BreadcrumbList",
       "@id": "https://airmedical24x7.com/air-ambulance.html#breadcrumb",
       "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Home",
-          "item": "https://airmedical24x7.com/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "Air Ambulance",
-          "item": "https://airmedical24x7.com/air-ambulance.html"
-        }
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://airmedical24x7.com/" },
+        { "@type": "ListItem", "position": 2, "name": "Air Ambulance", "item": "https://airmedical24x7.com/air-ambulance.html" }
       ]
     }
 
@@ -144,11 +156,31 @@
 </script>
 
 
+
+
     <meta charset="utf-8">
-    <title>Air Medical 24X7</title>
+    <title>Air Ambulance Services Worldwide | 24/7 ICU Medical Flights – Air Medical 24X7</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta content="Air Medical 24X7" name="keywords">
-    <meta content="Air Medical 24X7" name="description">
+    <meta name="keywords" content="air ambulance, air ambulance service, emergency air ambulance, ICU air ambulance, international air ambulance, neonatal air ambulance, medical evacuation, critical care flight, air ambulance Dubai, air ambulance India">
+    <meta name="description" content="Air Medical 24X7 provides 24/7 worldwide air ambulance services with ICU-equipped aircraft, doctors onboard, neonatal and critical care flights, and international medical evacuation from Dubai, India and globally.">
+    <link rel="canonical" href="https://airmedical24x7.com/air-ambulance.html">
+
+
+
+    <meta property="og:type" content="website">
+<meta property="og:title" content="24/7 Emergency Air Ambulance Worldwide – Air Medical 24X7">
+<meta property="og:description" content="Worldwide ICU air ambulance, neonatal transfer and emergency medical evacuation with doctors onboard from Dubai, India and globally.">
+<meta property="og:url" content="https://airmedical24x7.com/air-ambulance.html">
+<meta property="og:image" content="https://airmedical24x7.com/img/ab-new.jpg">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Air Ambulance Services – Air Medical 24X7">
+<meta name="twitter:description" content="24/7 ICU-equipped air ambulance, critical care flights and worldwide medical evacuation.">
+<meta name="twitter:image" content="https://airmedical24x7.com/img/ab-new.jpg">
+
+
+
+
 
     <!-- Favicon -->
     <link href="img/airmedicallogo.png" rel="icon">
@@ -215,7 +247,7 @@
                         <a class="text-body px-2" href="https://www.instagram.com/airmedical24x7/">
                             <i class="fab fa-instagram"></i>
                         </a>
-                        <a class="text-body ps-2" href="#!">
+                        <a class="text-body ps-2" href="https://www.youtube.com/@air.medical24X7">
                             <i class="fab fa-youtube"></i>
                         </a>
                     </div>
@@ -315,7 +347,7 @@
             <div class="row gx-5">
                 <div class="col-lg-5 mb-5 mb-lg-0" style="min-height: 500px;">
                     <div class="position-relative h-100">
-                        <img class="position-absolute w-100 h-100 rounded" src="img/ab-new.jpg"
+                        <img class="position-absolute w-100 h-100 rounded" src="img/ab-new.jpg" alt="ICU equipped air ambulance aircraft with doctors onboard for emergency medical evacuation"
                             style="object-fit: cover;">
                     </div>
                 </div>
@@ -554,7 +586,7 @@
                                 <div class="row mt-5">
                                <div class="col-12">
                                <div class="footer-world-map">
-                             <img src="img/worldmap.png" alt="Worldwide Presence Map">
+                             <img src="img/worldmap.png" alt="Worldwide air ambulance coverage of Air Medical 24X7">
                              </div>
                               </div>
                                 </div>

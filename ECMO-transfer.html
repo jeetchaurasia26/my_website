@@ -2,11 +2,159 @@
 <html lang="en">
 
 <head>
+
+
+
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+
+    {
+      "@type": "Organization",
+      "@id": "https://airmedical24x7.com/#organization",
+      "name": "Air Medical 24X7",
+      "url": "https://airmedical24x7.com/",
+      "logo": "https://airmedical24x7.com/images/logo.png",
+      "sameAs": [
+        "https://www.facebook.com/airmedical24x7",
+        "https://www.linkedin.com/company/airmedical24x7"
+      ]
+    },
+
+    {
+      "@type": "MedicalOrganization",
+      "@id": "https://airmedical24x7.com/#medicalorganization",
+      "name": "Air Medical 24X7",
+      "url": "https://airmedical24x7.com/",
+      "parentOrganization": {
+        "@id": "https://airmedical24x7.com/#organization"
+      },
+      "medicalSpecialty": [
+        "Air Ambulance",
+        "Critical Care Transport",
+        "ECMO Transport",
+        "Emergency Medicine"
+      ],
+      "areaServed": "Worldwide"
+    },
+
+    {
+      "@type": "LocalBusiness",
+      "@id": "https://airmedical24x7.com/#localbusiness",
+      "name": "Air Medical 24X7",
+      "url": "https://airmedical24x7.com/",
+      "telephone": "+91-00000-00000",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "India Operations",
+        "addressLocality": "New Delhi",
+        "addressRegion": "DL",
+        "addressCountry": "IN"
+      },
+      "parentOrganization": {
+        "@id": "https://airmedical24x7.com/#organization"
+      }
+    },
+
+    {
+      "@type": "Physician",
+      "@id": "https://airmedical24x7.com/#ecmoteam",
+      "name": "Air Medical 24X7 ECMO Medical Team",
+      "medicalSpecialty": [
+        "Critical Care",
+        "Cardiology",
+        "Pulmonology",
+        "Perfusion",
+        "Emergency Medicine"
+      ],
+      "worksFor": {
+        "@id": "https://airmedical24x7.com/#medicalorganization"
+      }
+    },
+
+    {
+      "@type": "MedicalProcedure",
+      "@id": "https://airmedical24x7.com/ecmo-transfer.html#ecmo",
+      "name": "ECMO Transfer",
+      "alternateName": "Extracorporeal Membrane Oxygenation Transport",
+      "procedureType": "Critical Care",
+      "howPerformed": "Patient is connected to ECMO machine providing cardiac and respiratory life support while transported via ICU equipped air ambulance",
+      "bodyLocation": ["Heart", "Lungs"],
+      "status": "Active"
+    },
+
+    {
+      "@type": "MedicalService",
+      "@id": "https://airmedical24x7.com/ecmo-transfer.html#ecmoservice",
+      "name": "ECMO Air Ambulance Transfer",
+      "description": "Worldwide ECMO air ambulance transfer service for critically ill cardiac and respiratory patients requiring life support during medical evacuation.",
+      "provider": {
+        "@id": "https://airmedical24x7.com/#medicalorganization"
+      },
+      "areaServed": "Worldwide",
+      "availableChannel": {
+        "@type": "ServiceChannel",
+        "serviceLocation": {
+          "@type": "Place",
+          "name": "Worldwide"
+        }
+      },
+      "hasMedicalProcedure": {
+        "@id": "https://airmedical24x7.com/ecmo-transfer.html#ecmo"
+      }
+    },
+
+    {
+      "@type": "WebSite",
+      "@id": "https://airmedical24x7.com/#website",
+      "url": "https://airmedical24x7.com/",
+      "name": "Air Medical 24X7"
+    },
+
+    {
+      "@type": "WebPage",
+      "@id": "https://airmedical24x7.com/ecmo-transfer.html",
+      "url": "https://airmedical24x7.com/ecmo-transfer.html",
+      "name": "ECMO Air Ambulance Transfer – Air Medical 24X7",
+      "isPartOf": {
+        "@id": "https://airmedical24x7.com/#website"
+      },
+      "about": {
+        "@id": "https://airmedical24x7.com/ecmo-transfer.html#ecmoservice"
+      },
+      "speakable": {
+        "@type": "SpeakableSpecification",
+        "cssSelector": ["h1","h2",".display-4",".text-primary"]
+      }
+    }
+
+  ]
+}
+</script>
+
+    
+
+
     <meta charset="utf-8">
-    <title>Air Medical 24X7</title>
+    <title>ECMO Transfer Services Worldwide | Critical Care Air Ambulance – Air Medical 24X7</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta content="Air Medical 24X7" name="keywords">
-    <meta content="Air Medical 24X7" name="description">
+    <meta name="keywords" content="ECMO transfer, ECMO air ambulance, ECMO patient transport, extracorporeal membrane oxygenation transport, critical care air ambulance, ECMO retrieval, cardiac life support transport, respiratory failure transfer, neonatal ECMO, pediatric ECMO">
+    <meta name="description" content="Air Medical 24X7 provides 24/7 ECMO transfer services via ICU-equipped air ambulances with expert ECMO teams, perfusionists and doctors for critical cardiac and respiratory patients worldwide.">
+    <meta name="author" content="Air Medical 24X7">
+    <link rel="canonical" href="https://airmedical24x7.com/ecmo-transfer.html">
+
+    <meta property="og:type" content="website">
+<meta property="og:title" content="ECMO Transfer Services Worldwide – Air Medical 24X7">
+<meta property="og:description" content="24/7 ECMO air ambulance transfers with ICU aircraft, ECMO specialists and critical care teams worldwide.">
+<meta property="og:url" content="https://airmedical24x7.com/ecmo-transfer.html">
+<meta property="og:image" content="https://airmedical24x7.com/img/ECMO.jpg">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ECMO Transfer – Air Medical 24X7">
+<meta name="twitter:description" content="Advanced ECMO air ambulance and critical care patient transfers worldwide.">
+<meta name="twitter:image" content="https://airmedical24x7.com/img/ECMO.jpg">
+
 
     <!-- Favicon -->
     <link href="img/airmedicallogo.png" rel="icon">
@@ -173,7 +321,7 @@
             <div class="row gx-5">
                 <div class="col-lg-5 mb-5 mb-lg-0" style="min-height: 500px;">
                     <div class="position-relative h-100">
-                        <img class="position-absolute w-100 h-100 rounded" src="img/ECMO.jpg"
+                        <img class="position-absolute w-100 h-100 rounded" src="img/ECMO.jpg" alt="ECMO equipped air ambulance providing critical cardiac and respiratory life support during patient transfer"
                             style="object-fit: cover;">
                     </div>
                 </div>
@@ -504,7 +652,7 @@
                                 <div class="row mt-5">
                                <div class="col-12">
                                <div class="footer-world-map">
-                             <img src="img/worldmap.png" alt="Worldwide Presence Map">
+                             <img src="img/worldmap.png" alt="Worldwide air ambulance coverage of Air Medical 24X7">
                              </div>
                               </div>
                                 </div>

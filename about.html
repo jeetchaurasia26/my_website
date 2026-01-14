@@ -3,48 +3,7 @@
 
 <head>
 
-    <script type="application/ld+json">
-
-        {
-  "@type": "LocalBusiness",
-  "@id": "https://airmedical24x7.com/#localbusiness-uae",
-  "name": "Air Medical 24X7 Dubai",
-  "address": {
-    "@type": "PostalAddress",
-    "streetAddress": "310, Garhoud Community, Near Dubai International Airport Terminal-1",
-    "addressLocality": "Dubai",
-    "addressCountry": "AE"
-  },
-  "telephone": "+971565542001",
-  "areaServed": "Middle East"
-},
-{
-  "@type": "LocalBusiness",
-  "@id": "https://airmedical24x7.com/#localbusiness-india",
-  "name": "Air Medical 24X7 India",
-  "address": {
-    "@type": "PostalAddress",
-    "streetAddress": "Padma Tower 1, Rajendra Place",
-    "addressLocality": "New Delhi",
-    "postalCode": "110008",
-    "addressCountry": "IN"
-  },
-  "telephone": "+918800028727",
-  "areaServed": "India"
-}
-
-{
-  "@type": "AboutPage",
-  "@id": "https://airmedical24x7.com/about.html#aboutpage",
-  "url": "https://airmedical24x7.com/about.html",
-  "name": "About Air Medical 24X7",
-  "description": "Air Medical 24X7 is a global air ambulance and medical evacuation company offering 24x7 ICU aircraft, flight doctors and worldwide patient transfers.",
-  "mainEntity": {
-    "@id": "https://airmedical24x7.com/#organization"
-  }
-}
-
-
+<script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@graph": [
@@ -53,110 +12,94 @@
       "@type": "Organization",
       "@id": "https://airmedical24x7.com/#organization",
       "name": "Air Medical 24X7",
-      "alternateName": "Air Medical 24X7 Global Air Ambulance Services",
+      "alternateName": "Air Medical 24X7 Global Air Ambulance",
       "url": "https://airmedical24x7.com/",
       "logo": "https://airmedical24x7.com/img/air-medical-logo.png",
       "image": "https://airmedical24x7.com/img/about-us.png",
-      "description": "Air Medical 24X7 is a globally trusted air ambulance and medical evacuation organization providing 24x7 worldwide emergency medical transport, ICU-equipped aircraft, flight medical escort services, and international medical tourism support.",
-      "areaServed": {
-        "@type": "AdministrativeArea",
-        "name": "Worldwide"
-      },
-      "availableLanguage": "All",
-      "knowsLanguage": [
-        "en","hi","ar","fr","de","es","it","ru","zh","ja","ko","pt","tr","th","id","ms","bn","ur"
-      ],
+      "description": "Air Medical 24X7 is a globally trusted air ambulance and medical evacuation company providing 24x7 ICU-equipped aircraft, flight doctors, and worldwide patient transfers.",
       "sameAs": [
         "https://www.facebook.com/airmedical24x7/",
         "https://x.com/airmedical24x7",
         "https://in.linkedin.com/company/airmedical24x7",
         "https://www.instagram.com/airmedical24x7/"
-      ],
-      "contactPoint": [
-        {
-          "@type": "ContactPoint",
-          "telephone": "+971565542001",
-          "contactType": "Emergency Medical Assistance",
-          "areaServed": "Worldwide",
-          "availableLanguage": "All"
-        }
       ]
     },
 
     {
       "@type": "MedicalOrganization",
-      "@id": "https://airmedical24x7.com/about.html#medicalorganization",
+      "@id": "https://airmedical24x7.com/#medicalorganization",
       "name": "Air Medical 24X7",
-      "url": "https://airmedical24x7.com/about.html",
+      "parentOrganization": {
+        "@id": "https://airmedical24x7.com/#organization"
+      },
       "medicalSpecialty": [
-        "Emergency Medical Transport",
-        "Air Ambulance Services",
+        "Air Ambulance",
         "Medical Evacuation",
-        "Flight Medical Escort",
-        "ICU Air Ambulance",
-        "Medical Tourism Assistance"
+        "Critical Care Transport",
+        "Neonatal Transport",
+        "Flight Medical Escort"
       ],
-      "availableService": [
-        {
-          "@type": "MedicalService",
-          "name": "Worldwide Air Ambulance Services",
-          "areaServed": "Worldwide"
-        },
-        {
-          "@type": "MedicalService",
-          "name": "International Medical Evacuation",
-          "areaServed": "Worldwide"
-        },
-        {
-          "@type": "MedicalService",
-          "name": "Flight Medical Escort Services",
-          "areaServed": "Worldwide"
-        },
-        {
-          "@type": "MedicalService",
-          "name": "Global Medical Tourism Services",
-          "areaServed": "Worldwide"
-        }
-      ]
+      "areaServed": "Worldwide"
     },
 
     {
-      "@type": "WebPage",
+      "@type": "LocalBusiness",
+      "@id": "https://airmedical24x7.com/#dubai",
+      "name": "Air Medical 24X7 Dubai",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "310, Garhoud Community, Near Dubai International Airport Terminal-1",
+        "addressLocality": "Dubai",
+        "addressCountry": "AE"
+      },
+      "telephone": "+971565542001",
+      "areaServed": "Middle East",
+      "parentOrganization": {
+        "@id": "https://airmedical24x7.com/#organization"
+      }
+    },
+
+    {
+      "@type": "LocalBusiness",
+      "@id": "https://airmedical24x7.com/#india",
+      "name": "Air Medical 24X7 India",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Padma Tower 1, Rajendra Place",
+        "addressLocality": "New Delhi",
+        "postalCode": "110008",
+        "addressCountry": "IN"
+      },
+      "telephone": "+918800028727",
+      "areaServed": "India",
+      "parentOrganization": {
+        "@id": "https://airmedical24x7.com/#organization"
+      }
+    },
+
+    {
+      "@type": "AboutPage",
       "@id": "https://airmedical24x7.com/about.html",
       "url": "https://airmedical24x7.com/about.html",
-      "name": "About Air Medical 24X7 | Global Air Ambulance & Medical Evacuation",
-      "description": "Discover Air Medical 24X7, a worldwide air ambulance and medical evacuation provider offering multilingual, 24x7 emergency medical transport services across all countries.",
+      "name": "About Air Medical 24X7",
+      "description": "Air Medical 24X7 is a global air ambulance and medical evacuation company operating from Dubai and India with worldwide coverage.",
       "about": {
         "@id": "https://airmedical24x7.com/#organization"
-      },
-      "inLanguage": "x-default"
+      }
     },
 
     {
       "@type": "BreadcrumbList",
       "@id": "https://airmedical24x7.com/about.html#breadcrumb",
       "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Home",
-          "item": "https://airmedical24x7.com/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "About Us",
-          "item": "https://airmedical24x7.com/about.html"
-        }
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://airmedical24x7.com/" },
+        { "@type": "ListItem", "position": 2, "name": "About Us", "item": "https://airmedical24x7.com/about.html" }
       ]
     }
 
   ]
 }
-
-
 </script>
-
 
 
 

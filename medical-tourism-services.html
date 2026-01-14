@@ -2,11 +2,129 @@
 <html lang="en">
 
 <head>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+
+    {
+      "@type": "Organization",
+      "@id": "https://airmedical24x7.com/#organization",
+      "name": "Air Medical 24X7",
+      "url": "https://airmedical24x7.com/",
+      "logo": "https://airmedical24x7.com/img/air-medical-logo.png",
+      "sameAs": [
+        "https://www.facebook.com/airmedical24x7",
+        "https://www.linkedin.com/company/airmedical24x7",
+        "https://www.instagram.com/airmedical24x7"
+      ]
+    },
+
+    {
+      "@type": "MedicalOrganization",
+      "@id": "https://airmedical24x7.com/#medicalorganization",
+      "name": "Air Medical 24X7",
+      "url": "https://airmedical24x7.com/",
+      "parentOrganization": {
+        "@id": "https://airmedical24x7.com/#organization"
+      },
+      "medicalSpecialty": [
+        "Medical Tourism",
+        "International Patient Transfer",
+        "Air Ambulance",
+        "Critical Care Transport",
+        "Aviation Medicine"
+      ],
+      "areaServed": "Worldwide"
+    },
+
+    {
+      "@type": "LocalBusiness",
+      "@id": "https://airmedical24x7.com/#dubai",
+      "name": "Air Medical 24X7 Dubai",
+      "url": "https://airmedical24x7.com/",
+      "telephone": "+971565542001",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Dubai",
+        "addressCountry": "AE"
+      },
+      "parentOrganization": {
+        "@id": "https://airmedical24x7.com/#organization"
+      }
+    },
+
+    {
+      "@type": "LocalBusiness",
+      "@id": "https://airmedical24x7.com/#india",
+      "name": "Air Medical 24X7 India",
+      "url": "https://airmedical24x7.com/",
+      "telephone": "+918800028727",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "New Delhi",
+        "addressCountry": "IN"
+      },
+      "parentOrganization": {
+        "@id": "https://airmedical24x7.com/#organization"
+      }
+    },
+
+    {
+      "@type": "MedicalService",
+      "@id": "https://airmedical24x7.com/medical-tourism.html#medicaltourism",
+      "name": "Medical Tourism Services",
+      "description": "International medical tourism services including hospital coordination, patient transfers, air ambulance, medical visas and treatment planning.",
+      "provider": {
+        "@id": "https://airmedical24x7.com/#medicalorganization"
+      },
+      "areaServed": "Worldwide"
+    },
+
+    {
+      "@type": "WebPage",
+      "@id": "https://airmedical24x7.com/medical-tourism.html",
+      "url": "https://airmedical24x7.com/medical-tourism.html",
+      "name": "Medical Tourism Services – Air Medical 24X7",
+      "about": {
+        "@id": "https://airmedical24x7.com/medical-tourism.html#medicaltourism"
+      },
+      "isPartOf": {
+        "@id": "https://airmedical24x7.com/#website"
+      },
+      "speakable": {
+        "@type": "SpeakableSpecification",
+        "cssSelector": ["h1","h2",".display-4",".text-primary"]
+      }
+    }
+
+  ]
+}
+</script>
+
+
+
     <meta charset="utf-8">
-    <title>Air Medical 24X7</title>
+    <title>Medical Tourism Air Transport & Patient Transfers Worldwide | Air Medical 24X7</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta content="Air Medical 24X7" name="keywords">
-    <meta content="Air Medical 24X7" name="description">
+    <meta name="keywords" content="medical tourism, medical travel, international patient transfer, medical tourism air ambulance, hospital transfer abroad, global healthcare travel, medical evacuation for treatment, international medical care">
+    <meta name="description" content="Air Medical 24X7 provides international medical tourism air transport, medical escorts, hospital coordination and safe patient transfers for global healthcare treatment.">
+    <link rel="canonical" href="https://airmedical24x7.com/medical-tourism-services.html">
+
+
+    <meta property="og:type" content="website">
+<meta property="og:title" content="Medical Tourism Air Transport – Air Medical 24X7">
+<meta property="og:description" content="Worldwide medical tourism air transport with hospital coordination, medical escorts and critical care support.">
+<meta property="og:url" content="https://airmedical24x7.com/medical-tourism.html">
+<meta property="og:image" content="https://airmedical24x7.com/img/medical-t.jpg">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Medical Tourism Services – Air Medical 24X7">
+<meta name="twitter:description" content="International medical tourism air transport and patient transfers worldwide.">
+<meta name="twitter:image" content="https://airmedical24x7.com/img/medical-t.jpg">
+
+
 
     <!-- Favicon -->
     <link href="img/airmedicallogo.png" rel="icon">
@@ -73,7 +191,7 @@
                         <a class="text-body px-2" href="https://www.instagram.com/airmedical24x7/">
                             <i class="fab fa-instagram"></i>
                         </a>
-                        <a class="text-body ps-2" href="#!">
+                        <a class="text-body ps-2" href="https://www.youtube.com/@air.medical24X7">
                             <i class="fab fa-youtube"></i>
                         </a>
                     </div>
@@ -172,7 +290,7 @@
             <div class="row gx-5">
                 <div class="col-lg-5 mb-5 mb-lg-0" style="min-height: 500px;">
                     <div class="position-relative h-100">
-                        <img class="position-absolute w-100 h-100 rounded" src="img/medical-t.jpg"
+                        <img class="position-absolute w-100 h-100 rounded" src="img/medical-t.jpg" alt="International medical tourism patient being transported with medical escort via air ambulance"
                             style="object-fit: cover;">
                     </div>
                 </div>
@@ -460,7 +578,7 @@
                                 <div class="row mt-5">
                                <div class="col-12">
                                <div class="footer-world-map">
-                             <img src="img/worldmap.png" alt="Worldwide Presence Map">
+                             <img src="img/worldmap.png" alt="Worldwide air ambulance coverage of Air Medical 24X7">
                              </div>
                               </div>
                                 </div>
