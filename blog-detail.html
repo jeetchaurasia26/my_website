@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Air Medical 24X7 Blogs</title>
+    <title>Air Medical 24X7</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="Air Medical 24X7" name="keywords">
     <meta content="Air Medical 24X7" name="description">
@@ -90,16 +90,16 @@
         <nav class="navbar navbar-expand-lg bg-white navbar-light py-3 py-lg-0">
 
             <!-- Logo -->
-            <a class="navbar-brand" href="index.html">
+            <a class="navbar-brand" href="/">
                 <img src="img/air-medical-logo.png" alt="Air Medical 24X7" class="logo-img">
             </a>
 
-          <!-- CENTER WHATSAPP (PC ONLY) -->
-    <div class="menu-whatsapp d-none d-lg-flex">
-        <a href="https://wa.me/971565542001" target="_blank" class="btn whatsapp-center-btn">
-            <i class="fab fa-whatsapp me-2"></i> WhatsApp
-        </a>
-    </div>
+            <!-- CENTER WHATSAPP (PC ONLY) -->
+            <div class="menu-whatsapp d-none d-lg-flex">
+                <a href="https://wa.me/971565542001" target="_blank" class="btn whatsapp-center-btn">
+                    <i class="fab fa-whatsapp me-2"></i> WhatsApp
+                </a>
+            </div>
 
             <!-- Mobile Call + WhatsApp (ONLY mobile/tablet) -->
             <div class="mobile-header-actions d-lg-none">
@@ -111,7 +111,7 @@
                 </a>
             </div>
 
-            <!-- Bootstrap Menu Button (ONLY ONE) -->
+            <!-- Bootstrap Menu Button -->
             <button class="navbar-toggler" type="button"
                 data-bs-toggle="collapse"
                 data-bs-target="#navbarCollapse">
@@ -121,8 +121,8 @@
             <!-- Menu -->
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <div class="navbar-nav ms-auto py-0">
-                    <a href="index.html" class="nav-item nav-link active">Home</a>
-                    <a href="about.html" class="nav-item nav-link">About</a>
+                    <a href="/" class="nav-item nav-link active">Home</a>
+                    <a href="/about" class="nav-item nav-link">About</a>
 
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Service</a>
@@ -138,7 +138,7 @@
                     </div>
 
                     <a href="#" class="nav-item nav-link">Career</a>
-                    <a href="contact.html" class="nav-item nav-link">Contact</a>
+                    <a href="/contact" class="nav-item nav-link">Contact</a>
                 </div>
             </div>
 
@@ -164,40 +164,229 @@
     <p class="sos-note">Available 24×7 Worldwide</p>
   </div>
 </div>
+<!-- SOS Popup -->
 
 
 
 
-<!-- Blog Detail Start -->
-<div class="container-fluid py-5">
-  <div class="container">
-    <div class="row justify-content-center">
-      <div class="col-lg-9">
 
-        <h1 id="blog-title" class="display-5 mb-3"></h1>
+<!-- Blog Start -->
+<div class="container py-5">
+  <div class="row g-5">
 
-        <p class="text-muted mb-4">
-          <span id="blog-author"></span> |
-          <span id="blog-date"></span>
-        </p>
+    <!-- Blog Content -->
+    <div class="col-lg-8">
 
-        <img id="blog-image"
-             class="img-fluid rounded mb-4"
-             style="display:none;">
+      <!-- Blog Detail Start -->
+      <div class="mb-5">
 
-        <div id="blog-content" class="blog-content"></div>
+        <img
+          id="blog-image"
+          class="img-fluid w-100 rounded mb-4"
+          src=""
+          alt=""
+        />
+
+        <h1 id="blog-title" class="mb-4"></h1>
+
+        <!-- Supabase injects full HTML content here -->
+        <div id="blog-content"></div>
+
+        <!-- Meta info -->
+        <div class="d-flex align-items-center mt-4">
+          <img
+            class="rounded-circle me-2"
+            src="img/user.jpg"
+            width="40"
+            height="40"
+            alt="Author"
+          />
+          <span>John Doe</span>
+
+          <span class="ms-4">
+            <i class="far fa-eye text-primary me-1"></i>12345
+          </span>
+
+          <span class="ms-3">
+            <i class="far fa-comment text-primary me-1"></i>123
+          </span>
+        </div>
 
       </div>
+      <!-- Blog Detail End -->
+
+      <!-- Comment List Start -->
+      <div class="mb-5">
+        <h4 class="d-inline-block text-primary text-uppercase border-bottom border-5 mb-4">
+          3 Comments
+        </h4>
+
+        <div class="d-flex mb-4">
+          <img src="img/user.jpg" class="img-fluid rounded-circle" style="width:45px;height:45px;">
+          <div class="ps-3">
+            <h6>John Doe <small><i>01 Jan 2045</i></small></h6>
+            <p>Diam amet duo labore stet elitr invidunt ea clita ipsum voluptua.</p>
+            <button class="btn btn-sm btn-light">Reply</button>
+          </div>
+        </div>
+
+        <div class="d-flex mb-4">
+          <img src="img/user.jpg" class="img-fluid rounded-circle" style="width:45px;height:45px;">
+          <div class="ps-3">
+            <h6>John Doe <small><i>01 Jan 2045</i></small></h6>
+            <p>Diam amet duo labore stet elitr invidunt ea clita ipsum voluptua.</p>
+            <button class="btn btn-sm btn-light">Reply</button>
+          </div>
+        </div>
+
+        <div class="d-flex ms-5 mb-4">
+          <img src="img/user.jpg" class="img-fluid rounded-circle" style="width:45px;height:45px;">
+          <div class="ps-3">
+            <h6>John Doe <small><i>01 Jan 2045</i></small></h6>
+            <p>Diam amet duo labore stet elitr invidunt ea clita ipsum voluptua.</p>
+            <button class="btn btn-sm btn-light">Reply</button>
+          </div>
+        </div>
+      </div>
+      <!-- Comment List End -->
+
+      <!-- Comment Form Start -->
+      <div class="bg-light rounded p-5">
+        <h4 class="d-inline-block text-primary text-uppercase border-bottom border-5 border-white mb-4">
+          Leave a comment
+        </h4>
+
+        <form>
+          <div class="row g-3">
+            <div class="col-sm-6">
+              <input type="text" class="form-control bg-white border-0" placeholder="Your Name" style="height:55px;">
+            </div>
+            <div class="col-sm-6">
+              <input type="email" class="form-control bg-white border-0" placeholder="Your Email" style="height:55px;">
+            </div>
+            <div class="col-12">
+              <input type="text" class="form-control bg-white border-0" placeholder="Website" style="height:55px;">
+            </div>
+            <div class="col-12">
+              <textarea class="form-control bg-white border-0" rows="5" placeholder="Comment"></textarea>
+            </div>
+            <div class="col-12">
+              <button class="btn btn-primary w-100 py-3">Leave Your Comment</button>
+            </div>
+          </div>
+        </form>
+      </div>
+      <!-- Comment Form End -->
+
     </div>
-  </div>
-</div>
-<!-- Blog Detail End -->
+
+            <!-- Sidebar Start -->
+            <div class="col-lg-4">
+                <!-- Search Form Start -->
+                <div class="mb-5">
+                    <div class="input-group">
+                        <input type="text" class="form-control p-3" placeholder="Keyword">
+                        <button class="btn btn-primary px-3"><i class="fa fa-search"></i></button>
+                    </div>
+                </div>
+                <!-- Search Form End -->
+
+                <!-- Category Start -->
+                <div class="mb-5">
+                    <h4 class="d-inline-block text-primary text-uppercase border-bottom border-5 mb-4">Categories</h4>
+                    <div id="category-list" class="d-flex flex-column justify-content-start">
+                     <!-- Categories injected by JS -->
+                       </div>
+
+                </div>
+                <!-- Category End -->
+
+                <!-- Recent Post Start -->
+                <div class="mb-5">
+                    <h4 class="d-inline-block text-primary text-uppercase border-bottom border-5 mb-4">Recent Post</h4>
+                    <div class="d-flex rounded overflow-hidden mb-3">
+                        <img class="img-fluid" src="img/blog-1.jpg"
+                            style="width: 100px; height: 100px; object-fit: cover;" alt="">
+                        <a href="#!" class="h5 d-flex align-items-center bg-light px-3 mb-0">Lorem ipsum dolor sit amet
+                            consec adipis elit
+                        </a>
+                    </div>
+                    <div class="d-flex rounded overflow-hidden mb-3">
+                        <img class="img-fluid" src="img/blog-2.jpg"
+                            style="width: 100px; height: 100px; object-fit: cover;" alt="">
+                        <a href="#!" class="h5 d-flex align-items-center bg-light px-3 mb-0">Lorem ipsum dolor sit amet
+                            consec adipis elit
+                        </a>
+                    </div>
+                    <div class="d-flex rounded overflow-hidden mb-3">
+                        <img class="img-fluid" src="img/blog-3.jpg"
+                            style="width: 100px; height: 100px; object-fit: cover;" alt="">
+                        <a href="#!" class="h5 d-flex align-items-center bg-light px-3 mb-0">Lorem ipsum dolor sit amet
+                            consec adipis elit
+                        </a>
+                    </div>
+                    <div class="d-flex rounded overflow-hidden mb-3">
+                        <img class="img-fluid" src="img/blog-1.jpg"
+                            style="width: 100px; height: 100px; object-fit: cover;" alt="">
+                        <a href="#!" class="h5 d-flex align-items-center bg-light px-3 mb-0">Lorem ipsum dolor sit amet
+                            consec adipis elit
+                        </a>
+                    </div>
+                    <div class="d-flex rounded overflow-hidden mb-3">
+                        <img class="img-fluid" src="img/blog-2.jpg"
+                            style="width: 100px; height: 100px; object-fit: cover;" alt="">
+                        <a href="#!" class="h5 d-flex align-items-center bg-light px-3 mb-0">Lorem ipsum dolor sit amet
+                            consec adipis elit
+                        </a>
+                    </div>
+                </div>
+                <!-- Recent Post End -->
+
+                <!-- Image Start -->
+                <div class="mb-5">
+                    <img src="img/blog-1.jpg" alt="" class="img-fluid rounded">
+                </div>
+                <!-- Image End -->
+
+                <!-- Tags Start -->
+                <div class="mb-5">
+                    <h4 class="d-inline-block text-primary text-uppercase border-bottom border-5 mb-4">Tag Cloud</h4>
+                    <div class="d-flex flex-wrap m-n1">
+                        <a href="#!" class="btn btn-primary m-1">Design</a>
+                        <a href="#!" class="btn btn-primary m-1">Development</a>
+                        <a href="#!" class="btn btn-primary m-1">Marketing</a>
+                        <a href="#!" class="btn btn-primary m-1">SEO</a>
+                        <a href="#!" class="btn btn-primary m-1">Writing</a>
+                        <a href="#!" class="btn btn-primary m-1">Consulting</a>
+                        <a href="#!" class="btn btn-primary m-1">Design</a>
+                        <a href="#!" class="btn btn-primary m-1">Development</a>
+                        <a href="#!" class="btn btn-primary m-1">Marketing</a>
+                        <a href="#!" class="btn btn-primary m-1">SEO</a>
+                        <a href="#!" class="btn btn-primary m-1">Writing</a>
+                        <a href="#!" class="btn btn-primary m-1">Consulting</a>
+                    </div>
+                </div>
+                <!-- Tags End -->
+
+                <!-- Plain Text Start -->
+                <div>
+                    <h4 class="d-inline-block text-primary text-uppercase border-bottom border-5 mb-4">Plain Text</h4>
+                    <div class="bg-light rounded text-center" style="padding: 30px;">
+                        <p>Vero sea et accusam justo dolor accusam lorem consetetur, dolores sit amet sit dolor clita
+                            kasd justo, diam accusam no sea ut tempor magna takimata, amet sit et diam dolor ipsum amet
+                            diam</p>
+                        <a href="#!" class="btn btn-primary py-2 px-4">Read More</a>
+                    </div>
+                </div>
+                <!-- Plain Text End -->
+            </div>
+            <!-- Sidebar End -->
+        </div>
+    </div>
+    <!-- Blog End -->
 
 
-
-
-
-  <!-- Footer Start -->
+   <!-- Footer Start -->
     <div class="container-fluid bg-dark text-light mt-5 py-5">
         <div class="container py-5">
             <div class="row g-5">
@@ -335,7 +524,10 @@
     <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
 
     <!-- Template Javascript -->
-  <script src="js/blog.js"></script>
+    <script src="js/main.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/js/blog-detail.js"></script>
 
 
 </body>
