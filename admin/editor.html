@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Blog Editor</title>
+  <meta charset="utf-8">
+  <title>Admin Blog Editor</title>
 
   <!-- Supabase -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -47,6 +48,8 @@
 
 <button class="btn btn-primary mt-3" onclick="saveBlog()">Save Blog</button>
 
+<!-- ================= SCRIPTS ================= -->
+
 <script>
   const supabaseClient = supabase.createClient(
     "https://eiqpvuciihwmuznbsyob.supabase.co",
@@ -56,22 +59,38 @@
   // Initialize CKEditor
   CKEDITOR.replace("content");
 
-  // 🔐 Auth check
+  /* ================= ADMIN GUARD ================= */
+
   (async () => {
     const { data: { user } } = await supabaseClient.auth.getUser();
+
     if (!user) {
       window.location.href = "login.html";
+      return;
+    }
+
+    const { data: profile, error } = await supabaseClient
+      .from("profiles")
+      .select("is_admin")
+      .eq("id", user.id)
+      .single();
+
+    if (error || !profile?.is_admin) {
+      alert("Unauthorized access");
+      window.location.href = "/";
     }
   })();
+
+  /* ================= SAVE BLOG ================= */
 
   async function saveBlog() {
     const { data: { user } } = await supabaseClient.auth.getUser();
     if (!user) {
-      alert("Unauthorized access");
+      alert("Unauthorized");
       return;
     }
 
-    const { error } = await supabaseClient.from("blogs").insert({
+    const payload = {
       title: document.getElementById("title").value,
       slug: document.getElementById("slug").value,
       author: document.getElementById("author").value,
@@ -82,7 +101,9 @@
       category: document.getElementById("category").value,
       content: CKEDITOR.instances.content.getData(),
       status: document.getElementById("status").value
-    });
+    };
+
+    const { error } = await supabaseClient.from("blogs").insert(payload);
 
     if (error) {
       alert(error.message);
@@ -91,10 +112,9 @@
       location.reload();
     }
   }
-</script>
 
-<script>
-  // Auto-generate slug from title
+  /* ================= SLUG AUTO-GENERATE ================= */
+
   document.getElementById("title").addEventListener("input", () => {
     const title = document.getElementById("title").value;
     document.getElementById("slug").value = title
