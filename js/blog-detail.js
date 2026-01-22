@@ -45,22 +45,22 @@ async function loadBlog() {
     return;
   }
 
-  // Render blog
+  /* Render blog */
   titleEl.innerText = data.title;
   imageEl.src = data.image_url || "img/blog-1.jpg";
   imageEl.alt = data.title;
   contentEl.innerHTML = data.content;
 
-  // SEO
+  /* SEO */
   document.title = data.meta_title || data.title;
   document
     .querySelector('meta[name="description"]')
     ?.setAttribute("content", data.meta_description || data.excerpt || "");
 
-  // Save blog id
+  /* Save blog id */
   currentBlogId = data.id;
 
-  // Views + comments
+  /* Views + comments */
   updateViews(data.id, data.views || 0);
   loadComments(data.id);
 }
@@ -74,7 +74,8 @@ async function updateViews(blogId, currentViews) {
     .update({ views: newViews })
     .eq("id", blogId);
 
-  document.getElementById("view-count").innerText = newViews;
+  const viewEl = document.getElementById("view-count");
+  if (viewEl) viewEl.innerText = newViews;
 }
 
 /***************** COMMENTS (APPROVED ONLY) *****************/
@@ -83,9 +84,7 @@ async function loadComments(blogId) {
     .from("comments")
     .select("*")
     .eq("blog_id", blogId)
-.eq("is_approved", true)
-
-    .eq("status", "approved")
+    .eq("status", "approved")     // ✅ ONLY approved comments
     .order("created_at", { ascending: false });
 
   if (error) {
@@ -95,9 +94,13 @@ async function loadComments(blogId) {
 
   const list = document.getElementById("comment-list");
   const heading = document.getElementById("comment-heading");
+  const countEl = document.getElementById("comment-count");
+
+  if (!list || !heading) return;
 
   list.innerHTML = "";
   heading.innerText = `${data.length} Comments`;
+  if (countEl) countEl.innerText = data.length;
 
   data.forEach(c => {
     const div = document.createElement("div");
@@ -117,8 +120,6 @@ async function loadComments(blogId) {
 
     list.appendChild(div);
   });
-
-  document.getElementById("comment-count").innerText = data.length;
 }
 
 /***************** COMMENT SUBMIT *****************/
@@ -132,10 +133,15 @@ document
       return;
     }
 
-    const name = document.getElementById("comment-name").value;
-    const email = document.getElementById("comment-email").value;
-    const website = document.getElementById("comment-website").value;
-    const message = document.getElementById("comment-message").value;
+    const name = document.getElementById("comment-name").value.trim();
+    const email = document.getElementById("comment-email").value.trim();
+    const website = document.getElementById("comment-website").value.trim();
+    const message = document.getElementById("comment-message").value.trim();
+
+    if (!name || !message) {
+      alert("Name and comment are required");
+      return;
+    }
 
     const { error } = await supabaseClient
       .from("comments")
@@ -145,7 +151,7 @@ document
         email,
         website,
         message,
-        status: "pending"
+        status: "pending"          // ⛔ waits for admin approval
       });
 
     if (error) {
@@ -165,6 +171,8 @@ async function loadCategories() {
     .eq("status", "published");
 
   const container = document.getElementById("category-list");
+  if (!container) return;
+
   container.innerHTML = "";
 
   [...new Set(data.map(b => b.category))].forEach(category => {
@@ -186,12 +194,14 @@ async function loadRecentPosts() {
     .limit(5);
 
   const container = document.getElementById("recent-posts");
+  if (!container) return;
+
   container.innerHTML = "";
 
   data.forEach(post => {
     container.innerHTML += `
       <div class="d-flex rounded overflow-hidden mb-3">
-        <img src="${post.image_url || 'img/blog-1.jpg'}"
+        <img src="${post.image_url || "img/blog-1.jpg"}"
              style="width:100px;height:100px;object-fit:cover">
         <a href="blog-detail.html?slug=${post.slug}"
            class="h5 d-flex align-items-center bg-light px-3 mb-0">
@@ -209,12 +219,15 @@ async function loadTags() {
     .select("tags")
     .eq("status", "published");
 
-  const tags = [...new Set(data.flatMap(b => b.tags || []))];
   const container = document.getElementById("tag-cloud");
   if (!container) return;
 
-  container.innerHTML = tags.map(tag => `
-    <a href="/blog?tag=${encodeURIComponent(tag)}"
-       class="btn btn-primary m-1">${tag}</a>
-  `).join("");
+  const tags = [...new Set(data.flatMap(b => b.tags || []))];
+
+  container.innerHTML = tags
+    .map(tag => `
+      <a href="/blog?tag=${encodeURIComponent(tag)}"
+         class="btn btn-primary m-1">${tag}</a>
+    `)
+    .join("");
 }

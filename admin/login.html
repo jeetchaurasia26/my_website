@@ -11,23 +11,18 @@
 <input type="email" id="email" placeholder="Email"><br><br>
 <input type="password" id="password" placeholder="Password"><br><br>
 
-
 <button onclick="login()">Login</button>
 
 <script>
   const supabaseClient = supabase.createClient(
-    "https://eiqpvuciihwmuznbsyob.supabase.co",
+     "https://eiqpvuciihwmuznbsyob.supabase.co",
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVpcXB2dWNpaWh3bXV6bmJzeW9iIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjU2MDY1MDcsImV4cCI6MjA4MTE4MjUwN30.fY2QZkNa1nUB1UQxmV8r97WTpB32ocIiVXaHo1coB-c"
   );
 
   async function login() {
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
-
-    // 1️⃣ Login
     const { data, error } = await supabaseClient.auth.signInWithPassword({
-      email,
-      password,
+      email: document.getElementById('email').value,
+      password: document.getElementById('password').value,
     });
 
     if (error) {
@@ -35,27 +30,23 @@
       return;
     }
 
-    const user = data.user;
-
-    // 2️⃣ Check admin role from profiles table
-    const { data: profile, error: profileError } = await supabaseClient
+    // ✅ CHECK ADMIN FROM PROFILES
+    const { data: profile } = await supabaseClient
       .from("profiles")
       .select("is_admin")
-      .eq("id", user.id)
+      .eq("id", data.user.id)
       .single();
 
-    if (profileError || !profile?.is_admin) {
-      alert("Access denied. Admins only.");
+    if (!profile?.is_admin) {
+      alert("Not an admin");
       await supabaseClient.auth.signOut();
       return;
     }
 
-    // ✅ Admin verified
-    window.location.href = "editor.html";
+    // ✅ CORRECT REDIRECT
+    window.location.href = "dashboard.html";
   }
 </script>
 
-
 </body>
 </html>
-
