@@ -37,6 +37,9 @@ async function loadBlog() {
     .select("*")
     .eq("slug", slug)
     .eq("status", "published")
+    .eq("is_approved", true)
+    .eq("is_spam", false)
+
     .single();
 
   if (error || !data) {
@@ -47,7 +50,7 @@ async function loadBlog() {
 
   /* Render blog */
   titleEl.innerText = data.title;
-  imageEl.src = data.image_url || "img/blog-1.jpg";
+  imageEl.src = data.image_url || "img/airmedicallogo.png";
   imageEl.alt = data.title;
   contentEl.innerHTML = data.content;
 
