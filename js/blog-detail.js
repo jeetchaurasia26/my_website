@@ -83,6 +83,9 @@ async function loadComments(blogId) {
     .from("comments")
     .select("*")
     .eq("blog_id", blogId)
+.eq("is_approved", true)
+
+
     .eq("status", "approved")
     .order("created_at", { ascending: false });
 

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Admin Dashboard</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <link rel="stylesheet" href="../css/bootstrap.min.css">
+</head>
+
+<body class="container py-5">
+
+<h2>Admin Dashboard</h2>
+
+<hr>
+
+<h4>Blog Comments Moderation</h4>
+
+<div id="comments-container"></div>
+
+<script>
+const supabaseClient = supabase.createClient(
+    "https://eiqpvuciihwmuznbsyob.supabase.co",
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVpcXB2dWNpaWh3bXV6bmJzeW9iIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjU2MDY1MDcsImV4cCI6MjA4MTE4MjUwN30.fY2QZkNa1nUB1UQxmV8r97WTpB32ocIiVXaHo1coB-c"
+  );
+
+/* ================= ADMIN GUARD ================= */
+
+(async () => {
+  const { data: { user } } = await supabaseClient.auth.getUser();
+  if (!user) return location.href = "login.html";
+
+  const { data: profile } = await supabaseClient
+    .from("profiles")
+    .select("is_admin")
+    .eq("id", user.id)
+    .single();
+
+  if (!profile?.is_admin) {
+    alert("Unauthorized");
+    location.href = "/";
+  }
+
+  loadComments();
+})();
+
+/* ================= LOAD COMMENTS ================= */
+
+async function loadComments() {
+  const { data, error } = await supabaseClient
+    .from("comments")
+    .select(`
+      id,
+      message,
+      name,
+      created_at,
+      is_approved,
+      is_spam,
+      blogs ( title )
+    `)
+    .order("created_at", { ascending: false });
+
+  if (error) {
+    alert(error.message);
+    return;
+  }
+
+  const container = document.getElementById("comments-container");
+  container.innerHTML = "";
+
+  data.forEach(c => {
+    container.innerHTML += `
+      <div class="border rounded p-3 mb-3">
+        <strong>${c.name}</strong>
+        <small class="text-muted">on ${c.blogs?.title}</small>
+        <p>${c.message}</p>
+
+        <span class="badge bg-${c.is_approved ? 'success' : 'warning'}">
+          ${c.is_approved ? 'Approved' : 'Pending'}
+        </span>
+
+        <div class="mt-2">
+          <button class="btn btn-sm btn-success" onclick="approve('${c.id}')">
+            Approve
+          </button>
+
+          <button class="btn btn-sm btn-danger" onclick="remove('${c.id}')">
+            Delete
+          </button>
+
+          <button class="btn btn-sm btn-secondary" onclick="reply('${c.id}')">
+            Reply
+          </button>
+        </div>
+
+        <div id="reply-${c.id}" class="mt-2"></div>
+      </div>
+    `;
+  });
+}
+
+/* ================= ACTIONS ================= */
+
+async function approve(id) {
+  await supabaseClient.from("comments")
+    .update({ is_approved: true })
+    .eq("id", id);
+  loadComments();
+}
+
+async function remove(id) {
+  if (!confirm("Delete comment?")) return;
+  await supabaseClient.from("comments")
+    .delete()
+    .eq("id", id);
+  loadComments();
+}
+
+function reply(id) {
+  const box = document.getElementById(`reply-${id}`);
+  box.innerHTML = `
+    <textarea id="reply-text-${id}" class="form-control mb-2"
+      placeholder="Write reply..."></textarea>
+    <button class="btn btn-primary btn-sm"
+      onclick="submitReply('${id}')">Send Reply</button>
+  `;
+}
+
+async function submitReply(parentId) {
+  const message = document.getElementById(`reply-text-${parentId}`).value;
+  if (!message) return;
+
+  await supabaseClient.from("comments").insert({
+    blog_id: null,
+    parent_id: parentId,
+    name: "Admin",
+    message,
+    is_approved: true
+  });
+
+  loadComments();
+}
+</script>
+
+</body>
+</html>
