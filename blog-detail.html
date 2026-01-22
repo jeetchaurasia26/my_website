@@ -204,79 +204,74 @@
           <span>John Doe</span>
 
           <span class="ms-4">
-            <i class="far fa-eye text-primary me-1"></i>12345
-          </span>
+            <i class="far fa-eye text-primary me-1"></i>
+<span id="view-count">0</span>
+          
 
           <span class="ms-3">
-            <i class="far fa-comment text-primary me-1"></i>123
+            <i class="far fa-comment text-primary me-1"></i>
+<span id="comment-count">0</span>
+
           </span>
         </div>
 
       </div>
       <!-- Blog Detail End -->
 
-      <!-- Comment List Start -->
-      <div class="mb-5">
-        <h4 class="d-inline-block text-primary text-uppercase border-bottom border-5 mb-4">
-          3 Comments
-        </h4>
+    <!-- Comment List Start -->
+<div class="mb-5">
+  <h4 id="comment-heading"
+      class="d-inline-block text-primary text-uppercase border-bottom border-5 mb-4">
+    0 Comments
+  </h4>
 
-        <div class="d-flex mb-4">
-          <img src="img/user.jpg" class="img-fluid rounded-circle" style="width:45px;height:45px;">
-          <div class="ps-3">
-            <h6>John Doe <small><i>01 Jan 2045</i></small></h6>
-            <p>Diam amet duo labore stet elitr invidunt ea clita ipsum voluptua.</p>
-            <button class="btn btn-sm btn-light">Reply</button>
-          </div>
-        </div>
+  <div id="comment-list">
+    <!-- Comments injected by JS -->
+  </div>
+</div>
+<!-- Comment List End -->
 
-        <div class="d-flex mb-4">
-          <img src="img/user.jpg" class="img-fluid rounded-circle" style="width:45px;height:45px;">
-          <div class="ps-3">
-            <h6>John Doe <small><i>01 Jan 2045</i></small></h6>
-            <p>Diam amet duo labore stet elitr invidunt ea clita ipsum voluptua.</p>
-            <button class="btn btn-sm btn-light">Reply</button>
-          </div>
-        </div>
+<!-- Comment Form Start -->
+<div class="bg-light rounded p-5">
+  <h4 class="d-inline-block text-primary text-uppercase border-bottom border-5 border-white mb-4">
+    Leave a comment
+  </h4>
 
-        <div class="d-flex ms-5 mb-4">
-          <img src="img/user.jpg" class="img-fluid rounded-circle" style="width:45px;height:45px;">
-          <div class="ps-3">
-            <h6>John Doe <small><i>01 Jan 2045</i></small></h6>
-            <p>Diam amet duo labore stet elitr invidunt ea clita ipsum voluptua.</p>
-            <button class="btn btn-sm btn-light">Reply</button>
-          </div>
-        </div>
+  <form id="comment-form">
+    <div class="row g-3">
+      <div class="col-sm-6">
+        <input id="comment-name" type="text"
+               class="form-control bg-white border-0"
+               placeholder="Your Name" required style="height:55px;">
       </div>
-      <!-- Comment List End -->
 
-      <!-- Comment Form Start -->
-      <div class="bg-light rounded p-5">
-        <h4 class="d-inline-block text-primary text-uppercase border-bottom border-5 border-white mb-4">
-          Leave a comment
-        </h4>
-
-        <form>
-          <div class="row g-3">
-            <div class="col-sm-6">
-              <input type="text" class="form-control bg-white border-0" placeholder="Your Name" style="height:55px;">
-            </div>
-            <div class="col-sm-6">
-              <input type="email" class="form-control bg-white border-0" placeholder="Your Email" style="height:55px;">
-            </div>
-            <div class="col-12">
-              <input type="text" class="form-control bg-white border-0" placeholder="Website" style="height:55px;">
-            </div>
-            <div class="col-12">
-              <textarea class="form-control bg-white border-0" rows="5" placeholder="Comment"></textarea>
-            </div>
-            <div class="col-12">
-              <button class="btn btn-primary w-100 py-3">Leave Your Comment</button>
-            </div>
-          </div>
-        </form>
+      <div class="col-sm-6">
+        <input id="comment-email" type="email"
+               class="form-control bg-white border-0"
+               placeholder="Your Email" style="height:55px;">
       </div>
-      <!-- Comment Form End -->
+
+      <div class="col-12">
+        <input id="comment-website" type="text"
+               class="form-control bg-white border-0"
+               placeholder="Website" style="height:55px;">
+      </div>
+
+      <div class="col-12">
+        <textarea id="comment-message"
+                  class="form-control bg-white border-0"
+                  rows="5" placeholder="Comment" required></textarea>
+      </div>
+
+      <div class="col-12">
+        <button class="btn btn-primary w-100 py-3">
+          Leave Your Comment
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
+<!-- Comment Form End -->
 
     </div>
 
@@ -301,46 +296,18 @@
                 </div>
                 <!-- Category End -->
 
+
                 <!-- Recent Post Start -->
-                <div class="mb-5">
-                    <h4 class="d-inline-block text-primary text-uppercase border-bottom border-5 mb-4">Recent Post</h4>
-                    <div class="d-flex rounded overflow-hidden mb-3">
-                        <img class="img-fluid" src="img/blog-1.jpg"
-                            style="width: 100px; height: 100px; object-fit: cover;" alt="">
-                        <a href="#!" class="h5 d-flex align-items-center bg-light px-3 mb-0">Lorem ipsum dolor sit amet
-                            consec adipis elit
-                        </a>
-                    </div>
-                    <div class="d-flex rounded overflow-hidden mb-3">
-                        <img class="img-fluid" src="img/blog-2.jpg"
-                            style="width: 100px; height: 100px; object-fit: cover;" alt="">
-                        <a href="#!" class="h5 d-flex align-items-center bg-light px-3 mb-0">Lorem ipsum dolor sit amet
-                            consec adipis elit
-                        </a>
-                    </div>
-                    <div class="d-flex rounded overflow-hidden mb-3">
-                        <img class="img-fluid" src="img/blog-3.jpg"
-                            style="width: 100px; height: 100px; object-fit: cover;" alt="">
-                        <a href="#!" class="h5 d-flex align-items-center bg-light px-3 mb-0">Lorem ipsum dolor sit amet
-                            consec adipis elit
-                        </a>
-                    </div>
-                    <div class="d-flex rounded overflow-hidden mb-3">
-                        <img class="img-fluid" src="img/blog-1.jpg"
-                            style="width: 100px; height: 100px; object-fit: cover;" alt="">
-                        <a href="#!" class="h5 d-flex align-items-center bg-light px-3 mb-0">Lorem ipsum dolor sit amet
-                            consec adipis elit
-                        </a>
-                    </div>
-                    <div class="d-flex rounded overflow-hidden mb-3">
-                        <img class="img-fluid" src="img/blog-2.jpg"
-                            style="width: 100px; height: 100px; object-fit: cover;" alt="">
-                        <a href="#!" class="h5 d-flex align-items-center bg-light px-3 mb-0">Lorem ipsum dolor sit amet
-                            consec adipis elit
-                        </a>
-                    </div>
-                </div>
-                <!-- Recent Post End -->
+<div class="mb-5">
+  <h4 class="d-inline-block text-primary text-uppercase border-bottom border-5 mb-4">
+    Recent Post
+  </h4>
+  <div id="recent-posts"></div>
+</div>
+<!-- Recent Post End -->
+
+
+
 
                 <!-- Image Start -->
                 <div class="mb-5">
@@ -349,24 +316,18 @@
                 <!-- Image End -->
 
                 <!-- Tags Start -->
-                <div class="mb-5">
-                    <h4 class="d-inline-block text-primary text-uppercase border-bottom border-5 mb-4">Tag Cloud</h4>
-                    <div class="d-flex flex-wrap m-n1">
-                        <a href="#!" class="btn btn-primary m-1">Design</a>
-                        <a href="#!" class="btn btn-primary m-1">Development</a>
-                        <a href="#!" class="btn btn-primary m-1">Marketing</a>
-                        <a href="#!" class="btn btn-primary m-1">SEO</a>
-                        <a href="#!" class="btn btn-primary m-1">Writing</a>
-                        <a href="#!" class="btn btn-primary m-1">Consulting</a>
-                        <a href="#!" class="btn btn-primary m-1">Design</a>
-                        <a href="#!" class="btn btn-primary m-1">Development</a>
-                        <a href="#!" class="btn btn-primary m-1">Marketing</a>
-                        <a href="#!" class="btn btn-primary m-1">SEO</a>
-                        <a href="#!" class="btn btn-primary m-1">Writing</a>
-                        <a href="#!" class="btn btn-primary m-1">Consulting</a>
-                    </div>
-                </div>
-                <!-- Tags End -->
+<div class="mb-5">
+    <h4 class="d-inline-block text-primary text-uppercase border-bottom border-5 mb-4">
+        Tag Cloud
+    </h4>
+
+    <!-- JS will inject tags here -->
+    <div id="tag-cloud" class="d-flex flex-wrap m-n1">
+        <!-- Dynamic tags from Supabase -->
+    </div>
+</div>
+<!-- Tags End -->
+
 
                 <!-- Plain Text Start -->
                 <div>
