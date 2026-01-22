@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
 /***************** BLOG LOAD *****************/
 async function loadBlog() {
   if (!slug) {
-    titleEl.innerText = "Blog not found";
+    if (titleEl) titleEl.innerText = "Blog not found";
     return;
   }
 
@@ -37,22 +37,21 @@ async function loadBlog() {
     .select("*")
     .eq("slug", slug)
     .eq("status", "published")
-    .eq("is_approved", true)
-    .eq("is_spam", false)
-
     .single();
 
   if (error || !data) {
-    console.error(error);
-    titleEl.innerText = "Blog not found";
+    console.error("Blog load error:", error);
+    if (titleEl) titleEl.innerText = "Blog not found";
     return;
   }
 
   /* Render blog */
-  titleEl.innerText = data.title;
-  imageEl.src = data.image_url || "img/airmedicallogo.png";
-  imageEl.alt = data.title;
-  contentEl.innerHTML = data.content;
+  if (titleEl) titleEl.innerText = data.title;
+  if (imageEl) {
+    imageEl.src = data.image_url || "img/blog-1.jpg";
+    imageEl.alt = data.title;
+  }
+  if (contentEl) contentEl.innerHTML = data.content;
 
   /* SEO */
   document.title = data.meta_title || data.title;
@@ -87,7 +86,7 @@ async function loadComments(blogId) {
     .from("comments")
     .select("*")
     .eq("blog_id", blogId)
-    .eq("status", "approved")     // ✅ ONLY approved comments
+    .eq("status", "approved")
     .order("created_at", { ascending: false });
 
   if (error) {
@@ -154,7 +153,7 @@ document
         email,
         website,
         message,
-        status: "pending"          // ⛔ waits for admin approval
+        status: "pending"
       });
 
     if (error) {
@@ -174,7 +173,7 @@ async function loadCategories() {
     .eq("status", "published");
 
   const container = document.getElementById("category-list");
-  if (!container) return;
+  if (!container || !data) return;
 
   container.innerHTML = "";
 
@@ -197,7 +196,7 @@ async function loadRecentPosts() {
     .limit(5);
 
   const container = document.getElementById("recent-posts");
-  if (!container) return;
+  if (!container || !data) return;
 
   container.innerHTML = "";
 
@@ -223,7 +222,7 @@ async function loadTags() {
     .eq("status", "published");
 
   const container = document.getElementById("tag-cloud");
-  if (!container) return;
+  if (!container || !data) return;
 
   const tags = [...new Set(data.flatMap(b => b.tags || []))];
 
