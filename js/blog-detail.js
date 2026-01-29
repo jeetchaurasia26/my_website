@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
 /***************** BLOG LOAD *****************/
 async function loadBlog() {
   if (!slug) {
-    if (titleEl) titleEl.innerText = "Blog not found";
+    titleEl.innerText = "Blog not found";
     return;
   }
 
@@ -40,29 +40,28 @@ async function loadBlog() {
     .single();
 
   if (error || !data) {
-    console.error("Blog load error:", error);
-    if (titleEl) titleEl.innerText = "Blog not found";
+    console.error(error);
+    titleEl.innerText = "Blog not found";
     return;
   }
 
-  /* Render blog */
-  if (titleEl) titleEl.innerText = data.title;
-  if (imageEl) {
-    imageEl.src = data.image_url || "img/blog-1.jpg";
-    imageEl.alt = data.title;
-  }
-  if (contentEl) contentEl.innerHTML = data.content;
+  titleEl.innerText = data.title;
 
-  /* SEO */
+  imageEl.src = data.featured_image || "img/airmedicallogo.png";
+  imageEl.alt = data.title;
+
+  contentEl.innerHTML = data.content;
+
   document.title = data.meta_title || data.title;
   document
     .querySelector('meta[name="description"]')
-    ?.setAttribute("content", data.meta_description || data.excerpt || "");
+    ?.setAttribute(
+      "content",
+      data.meta_description || data.excerpt || ""
+    );
 
-  /* Save blog id */
   currentBlogId = data.id;
 
-  /* Views + comments */
   updateViews(data.id, data.views || 0);
   loadComments(data.id);
 }
@@ -80,17 +79,17 @@ async function updateViews(blogId, currentViews) {
   if (viewEl) viewEl.innerText = newViews;
 }
 
-/***************** COMMENTS (APPROVED ONLY) *****************/
+/***************** COMMENTS + AIR MEDICAL 24X7 REPLY *****************/
 async function loadComments(blogId) {
   const { data, error } = await supabaseClient
     .from("comments")
-    .select("*")
+    .select("name, message, admin_reply, created_at")
     .eq("blog_id", blogId)
     .eq("status", "approved")
     .order("created_at", { ascending: false });
 
   if (error) {
-    console.error("Load comments error:", error);
+    console.error(error);
     return;
   }
 
@@ -98,26 +97,42 @@ async function loadComments(blogId) {
   const heading = document.getElementById("comment-heading");
   const countEl = document.getElementById("comment-count");
 
-  if (!list || !heading) return;
-
   list.innerHTML = "";
   heading.innerText = `${data.length} Comments`;
   if (countEl) countEl.innerText = data.length;
 
   data.forEach(c => {
     const div = document.createElement("div");
-    div.className = "d-flex mb-4";
+    div.className = "mb-4";
 
     div.innerHTML = `
-      <img src="img/user.jpg"
-           class="img-fluid rounded-circle"
-           style="width:45px;height:45px;">
-      <div class="ps-3">
-        <h6>${c.name}
-          <small><i>${new Date(c.created_at).toDateString()}</i></small>
-        </h6>
-        <p>${c.message}</p>
+      <div class="mb-1">
+        <strong>${c.name}</strong>
+        <small class="text-muted">
+          • ${new Date(c.created_at).toDateString()}
+        </small>
       </div>
+
+      <div class="mb-2">
+        ${c.message}
+      </div>
+
+      ${
+        c.admin_reply
+          ? `
+          <div style="
+            margin-left: 15px;
+            padding: 10px 12px;
+            background: #f8f9fa;
+            border-left: 3px solid #dc3545;
+            font-size: 14px;
+          ">
+            <strong>Air Medical 24X7:</strong><br>
+            ${c.admin_reply}
+          </div>
+        `
+          : ""
+      }
     `;
 
     list.appendChild(div);
@@ -173,16 +188,17 @@ async function loadCategories() {
     .eq("status", "published");
 
   const container = document.getElementById("category-list");
-  if (!container || !data) return;
+  if (!container) return;
 
   container.innerHTML = "";
 
   [...new Set(data.map(b => b.category))].forEach(category => {
-    const a = document.createElement("a");
-    a.className = "h5 bg-light rounded py-2 px-3 mb-2";
-    a.href = `/blog?category=${encodeURIComponent(category)}`;
-    a.innerHTML = `<i class="fa fa-angle-right me-2"></i>${category}`;
-    container.appendChild(a);
+    container.innerHTML += `
+      <a class="d-block mb-2"
+         href="/blog?category=${encodeURIComponent(category)}">
+        ${category}
+      </a>
+    `;
   });
 }
 
@@ -190,26 +206,22 @@ async function loadCategories() {
 async function loadRecentPosts() {
   const { data } = await supabaseClient
     .from("blogs")
-    .select("title, slug, image_url")
+    .select("title, slug")
     .eq("status", "published")
     .order("created_at", { ascending: false })
     .limit(5);
 
   const container = document.getElementById("recent-posts");
-  if (!container || !data) return;
+  if (!container) return;
 
   container.innerHTML = "";
 
   data.forEach(post => {
     container.innerHTML += `
-      <div class="d-flex rounded overflow-hidden mb-3">
-        <img src="${post.image_url || "img/blog-1.jpg"}"
-             style="width:100px;height:100px;object-fit:cover">
-        <a href="blog-detail.html?slug=${post.slug}"
-           class="h5 d-flex align-items-center bg-light px-3 mb-0">
-          ${post.title}
-        </a>
-      </div>
+      <a class="d-block mb-2"
+         href="/blog-detail.html?slug=${post.slug}">
+        ${post.title}
+      </a>
     `;
   });
 }
@@ -222,14 +234,16 @@ async function loadTags() {
     .eq("status", "published");
 
   const container = document.getElementById("tag-cloud");
-  if (!container || !data) return;
+  if (!container) return;
 
   const tags = [...new Set(data.flatMap(b => b.tags || []))];
 
   container.innerHTML = tags
     .map(tag => `
       <a href="/blog?tag=${encodeURIComponent(tag)}"
-         class="btn btn-primary m-1">${tag}</a>
+         class="btn btn-primary btn-sm m-1">
+        ${tag}
+      </a>
     `)
     .join("");
 }

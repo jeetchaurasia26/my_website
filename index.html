@@ -778,74 +778,57 @@ window.addEventListener("load", function () {
                 <h2 class="display-4">Our Latest Blog Posts</h2>
             </div>
             <div class="row g-5">
-                <div class="col-xl-4 col-lg-6">
-                    <div class="bg-light rounded overflow-hidden">
-                        <img class="img-fluid w-100" src="img/blog1.jpg" alt="Air Medical 24X7 Blog">
-                        <div class="p-4">
-                            <a class="h3 d-block mb-3" href="#!">Average Air Ambulance Response Time: What to Expect in Emergencies</a>
-                            <p class="m-0">When emergencies strike, every second matters. In life-threatening situations, 
-                                especially in remote or hard-to-reach areas, air ambulances often provide the fastest and most 
-                                reliable transportation to advanced medical care.</p>
-                        </div>
-                        <div class="d-flex justify-content-between border-top p-4">
-                            <div class="d-flex align-items-center">
-                                <img class="rounded-circle me-2" src="img/user.jpg" width="25" height="25" alt="Air Medical 24X7 Team">
-                                <small>Ahmed</small>
-                            </div>
-                            <div class="d-flex align-items-center">
-                                <small class="ms-3"><i class="far fa-eye text-primary me-1"></i>12345</small>
-                                <small class="ms-3"><i class="far fa-comment text-primary me-1"></i>123</small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-4 col-lg-6">
-                    <div class="bg-light rounded overflow-hidden">
-                        <img class="img-fluid w-100" src="img/blog2.jpg" alt="Air Medical 24X7 Blog">
-                        <div class="p-4">
-                            <a class="h3 d-block mb-3" href="#!">Is an Air Ambulance Worth the Cost? Pros and Cons</a>
-                            <p class="m-0">When a medical emergency strikes, time is often the most critical factor. 
-                                In life-threatening situations or cases where a patient needs to be transported quickly across 
-                                cities or countries, air ambulance services offer a fast and efficient solution. 
-                                However, the cost of air ambulance transport can be significant, leaving many wondering:</p>
-                        </div>
-                        <div class="d-flex justify-content-between border-top p-4">
-                            <div class="d-flex align-items-center">
-                                <img class="rounded-circle me-2" src="img/team-2.jpg" width="25" height="25" alt="Air Medical 24X7 Team">
-                                <small>John Doe</small>
-                            </div>
-                            <div class="d-flex align-items-center">
-                                <small class="ms-3"><i class="far fa-eye text-primary me-1"></i>12345</small>
-                                <small class="ms-3"><i class="far fa-comment text-primary me-1"></i>123</small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-4 col-lg-6">
-                    <div class="bg-light rounded overflow-hidden">
-                        <img class="img-fluid w-100" src="img/blog3.jpg" alt="Air Medical 24X7 Blog">
-                        <div class="p-4">
-                            <a class="h3 d-block mb-3" href="#!">Which Aircraft Are Used for Medical Transport</a>
-                            <p class="m-0">In today’s fast-paced world, medical air transport plays a crucial role 
-                                in saving lives. Whether it’s an emergency evacuation, organ transfer, or transporting 
-                                critical patients between hospitals, air ambulances offer a fast, safe, and efficient solution.</p>
-                        </div>
-                        <div class="d-flex justify-content-between border-top p-4">
-                            <div class="d-flex align-items-center">
-                                <img class="rounded-circle me-2" src="img/team-1.jpg" width="25" height="25" alt="Air Medical 24X7 Team">
-                                <small>Doe</small>
-                            </div>
-                            <div class="d-flex align-items-center">
-                                <small class="ms-3"><i class="far fa-eye text-primary me-1"></i>12345</small>
-                                <small class="ms-3"><i class="far fa-comment text-primary me-1"></i>123</small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+
+
+                <div class="row g-5" id="home-blog-list"></div>
+
+
+
             </div>
         </div>
     </div>
     <!-- Blog End -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const supabaseClient = supabase.createClient(
+  "https://eiqpvuciihwmuznbsyob.supabase.co",
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVpcXB2dWNpaWh3bXV6bmJzeW9iIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjU2MDY1MDcsImV4cCI6MjA4MTE4MjUwN30.fY2QZkNa1nUB1UQxmV8r97WTpB32ocIiVXaHo1coB-c"
+);
+
+async function loadHomeBlogs() {
+  const { data, error } = await supabaseClient
+    .from("blogs")
+    .select("title, slug, excerpt, featured_image, author")
+    .eq("status", "published")
+    .order("created_at", { ascending: false })
+    .limit(3);
+
+  if (error) return;
+
+  const container = document.getElementById("home-blog-list");
+
+  container.innerHTML = data.map(b => `
+    <div class="col-xl-4 col-lg-6">
+      <div class="bg-light rounded overflow-hidden">
+        <img class="img-fluid w-100" src="${b.featured_image || 'img/blog1.jpg'}">
+        <div class="p-4">
+          <a class="h3 d-block mb-3"
+             href="/blog-detail.html?slug=${b.slug}">
+             ${b.title}
+          </a>
+          <p class="m-0">${b.excerpt || ""}</p>
+        </div>
+        <div class="d-flex justify-content-between border-top p-4">
+          <small>${b.author || "Air Medical 24X7"}</small>
+        </div>
+      </div>
+    </div>
+  `).join("");
+}
+
+document.addEventListener("DOMContentLoaded", loadHomeBlogs);
+</script>
 
 
 

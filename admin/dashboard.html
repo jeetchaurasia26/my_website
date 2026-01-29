@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Admin Dashboard</title>
+  <meta charset="UTF-8">
+  <title>Admin Dashboard – Comment Moderation</title>
 
   <!-- Supabase -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -13,16 +14,17 @@
 <body class="container py-5">
 
 <h2 class="mb-4">Admin Dashboard</h2>
-<h4 class="mb-3">Blog Comment Moderation</h4>
+<h4 class="mb-4">Blog Comment Moderation</h4>
 
-<table class="table table-bordered table-striped">
+<table class="table table-bordered table-striped align-middle">
   <thead class="table-light">
     <tr>
       <th>Name</th>
       <th>Comment</th>
       <th>Blog</th>
       <th>Status</th>
-      <th style="width:180px;">Actions</th>
+      <th style="width:300px;">Admin Reply</th>
+      <th style="width:220px;">Actions</th>
     </tr>
   </thead>
   <tbody id="comment-table"></tbody>
@@ -32,7 +34,8 @@
 /***************** SUPABASE CONFIG *****************/
 const supabaseClient = supabase.createClient(
   "https://eiqpvuciihwmuznbsyob.supabase.co",
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVpcXB2dWNpaWh3bXV6bmJzeW9iIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjU2MDY1MDcsImV4cCI6MjA4MTE4MjUwN30.fY2QZkNa1nUB1UQxmV8r97WTpB32ocIiVXaHo1coB-c"
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVpcXB2dWNpaWh3bXV6bmJzeW9iIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjU2MDY1MDcsImV4cCI6MjA4MTE4MjUwN30.fY2QZkNa1nUB1UQxmV8r97WTpB32ocIiVXaHo1coB-c"
+
 );
 
 /***************** ADMIN GUARD *****************/
@@ -51,7 +54,7 @@ const supabaseClient = supabase.createClient(
     .single();
 
   if (!profile?.is_admin) {
-    alert("Unauthorized access");
+    alert("Unauthorized");
     location.href = "/";
     return;
   }
@@ -68,6 +71,7 @@ async function loadComments() {
       name,
       message,
       status,
+      admin_reply,
       created_at,
       blogs ( title )
     `)
@@ -90,17 +94,42 @@ async function loadComments() {
     tbody.innerHTML += `
       <tr>
         <td>${c.name}</td>
-        <td>${c.message}</td>
-        <td>${c.blogs?.title || "-"}</td>
-        <td>${statusBadge}</td>
+
         <td>
-          <button class="btn btn-success btn-sm me-1"
+          <p class="mb-1">${c.message}</p>
+          <small class="text-muted">
+            ${new Date(c.created_at).toLocaleString()}
+          </small>
+        </td>
+
+        <td>${c.blogs?.title || "-"}</td>
+
+        <td>${statusBadge}</td>
+
+        <td>
+          <textarea
+            class="form-control mb-2"
+            rows="2"
+            id="reply-${c.id}"
+            placeholder="Write admin reply...">${c.admin_reply || ""}</textarea>
+
+          <button
+            class="btn btn-sm btn-primary"
+            onclick="replyComment('${c.id}')">
+            Save Reply
+          </button>
+        </td>
+
+        <td>
+          <button
+            class="btn btn-sm btn-success mb-1"
             onclick="approveComment('${c.id}')"
             ${c.status === "approved" ? "disabled" : ""}>
             Approve
           </button>
 
-          <button class="btn btn-danger btn-sm"
+          <button
+            class="btn btn-sm btn-danger"
             onclick="markSpam('${c.id}')"
             ${c.status === "spam" ? "disabled" : ""}>
             Spam
@@ -112,11 +141,11 @@ async function loadComments() {
 }
 
 /***************** APPROVE COMMENT *****************/
-async function approveComment(commentId) {
+async function approveComment(id) {
   const { error } = await supabaseClient
     .from("comments")
     .update({ status: "approved" })
-    .eq("id", commentId);
+    .eq("id", id);
 
   if (error) {
     alert(error.message);
@@ -126,18 +155,41 @@ async function approveComment(commentId) {
   loadComments();
 }
 
-/***************** MARK AS SPAM *****************/
-async function markSpam(commentId) {
+/***************** MARK SPAM *****************/
+async function markSpam(id) {
   const { error } = await supabaseClient
     .from("comments")
     .update({ status: "spam" })
-    .eq("id", commentId);
+    .eq("id", id);
 
   if (error) {
     alert(error.message);
     return;
   }
 
+  loadComments();
+}
+
+/***************** ADMIN REPLY *****************/
+async function replyComment(id) {
+  const reply = document.getElementById(`reply-${id}`).value.trim();
+
+  if (!reply) {
+    alert("Reply cannot be empty");
+    return;
+  }
+
+  const { error } = await supabaseClient
+    .from("comments")
+    .update({ admin_reply: reply })
+    .eq("id", id);
+
+  if (error) {
+    alert(error.message);
+    return;
+  }
+
+  alert("Reply saved & visible on blog page");
   loadComments();
 }
 </script>
