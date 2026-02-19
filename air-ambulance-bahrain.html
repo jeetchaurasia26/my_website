@@ -166,6 +166,415 @@
 </div>
 
 
+<!-- ================= POPUP MODAL FORM ================= -->
+
+
+<!-- Modal Overlay -->
+<div id="quoteModal" class="quote-modal">
+  <div class="quote-modal-content">
+    <!-- Close Button -->
+    <button class="quote-modal-close" onclick="closeQuoteModal()">&times;</button>
+    
+    <div class="quote-modal-header">
+      <h4 class="quote-modal-title">Get a Free Quotation Worldwide</h4>
+      <p class="quote-modal-subtitle">Fill in your details and we'll contact you shortly</p>
+    </div>
+
+    <!-- Form (Same structure as your original) -->
+    <form id="quoteFormPopup">
+      <div class="quote-form-grid">
+        
+        <!-- Full Name -->
+        <div class="quote-form-group">
+          <label class="quote-form-label">Full Name</label>
+          <input type="text" id="popupName" name="name"
+            class="quote-form-input"
+            placeholder="Enter your name"
+            required pattern="[A-Za-z ]+">
+        </div>
+
+        <!-- Phone -->
+        <div class="quote-form-group">
+          <label class="quote-form-label">Phone Number</label>
+          <div class="quote-phone-group">
+            <input type="text" id="popupCountryCode" class="quote-form-input quote-country-code" readonly>
+            <input type="tel" id="popupPhone" name="phone" class="quote-form-input quote-phone-input"
+              placeholder="Enter your phone number" required>
+          </div>
+        </div>
+
+        <!-- Hidden combined phone -->
+        <input type="hidden" name="full_phone" id="popupFullPhone">
+
+        <!-- Email -->
+        <div class="quote-form-group">
+          <label class="quote-form-label">Email</label>
+          <input type="email" id="popupEmail" name="email"
+            class="quote-form-input"
+            placeholder="Enter your email" required>
+        </div>
+
+        <!-- Services -->
+        <div class="quote-form-group">
+          <label class="quote-form-label">Service Required</label>
+          <select id="popupService" name="service" class="quote-form-select" required>
+            <option value="">Select a Service</option>
+            <option>Air Ambulance</option>
+            <option>Commercial Flight Stretcher Service</option>
+            <option>Medical Tourism</option>
+            <option>Flight Medical escort</option>
+            <option>Flight Wheelchair Services</option>
+            <option>Private Medical Charter Jet</option>
+            <option>Medical Travel Assistance</option>
+            <option>Organ Transplant Assistance</option>
+            <option>Overseas Medical Tourism</option>
+            <option>ECMO Transfer Services</option>
+            <option>Home Health Care</option>
+          </select>
+        </div>
+
+        <button type="submit" class="quote-submit-btn">
+          Get a Free Quotation
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<style>
+/* ================= MODAL STYLES ================= */
+.quote-modal {
+  display: none;
+  position: fixed;
+  z-index: 99999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  animation: fadeIn 0.3s ease;
+  overflow-y: auto;
+  padding: 20px;
+}
+
+.quote-modal.active {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.quote-modal-content {
+  background: #f8f9fa;
+  border-radius: 16px;
+  padding: 35px 30px;
+  width: 100%;
+  max-width: 500px;
+  position: relative;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  animation: slideUp 0.3s ease;
+  margin: auto;
+}
+
+.quote-modal-close {
+  position: absolute;
+  right: 20px;
+  top: 15px;
+  background: none;
+  border: none;
+  font-size: 28px;
+  color: #6c757d;
+  cursor: pointer;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.2s;
+}
+
+.quote-modal-close:hover {
+  background: #e9ecef;
+  color: #000;
+}
+
+.quote-modal-header {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.quote-modal-title {
+  color: #0d6efd;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.quote-modal-subtitle {
+  color: #6c757d;
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+/* Form Styles */
+.quote-form-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.quote-form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.quote-form-label {
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #212529;
+  font-size: 0.9rem;
+}
+
+.quote-form-input,
+.quote-form-select {
+  height: 55px;
+  padding: 12px 16px;
+  border: none;
+  background-color: #e9ecef;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all 0.2s;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.quote-form-input:focus,
+.quote-form-select:focus {
+  outline: none;
+  background-color: #dee2e6;
+  box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.15);
+}
+
+.quote-phone-group {
+  display: flex;
+  gap: 10px;
+}
+
+.quote-country-code {
+  max-width: 90px;
+  text-align: center;
+  font-weight: 600;
+  color: #495057;
+}
+
+.quote-phone-input {
+  flex: 1;
+}
+
+.quote-submit-btn {
+  width: 100%;
+  height: 55px;
+  background-color: #0d6efd;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-top: 10px;
+}
+
+.quote-submit-btn:hover {
+  background-color: #0b5ed7;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(13, 110, 253, 0.3);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { 
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to { 
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Mobile Responsive */
+@media (max-width: 576px) {
+  .quote-modal {
+    padding: 10px;
+    align-items: flex-end;
+  }
+  
+  .quote-modal-content {
+    padding: 25px 20px;
+    border-radius: 20px 20px 0 0;
+    max-width: 100%;
+    animation: slideUpMobile 0.3s ease;
+  }
+  
+  .quote-modal-title {
+    font-size: 1.3rem;
+  }
+  
+  .quote-form-input,
+  .quote-form-select {
+    height: 50px;
+    font-size: 16px; /* Prevents zoom on iOS */
+  }
+  
+  .quote-submit-btn {
+    height: 50px;
+    font-size: 1rem;
+  }
+  
+  @keyframes slideUpMobile {
+    from { transform: translateY(100%); }
+    to { transform: translateY(0); }
+  }
+}
+
+/* Tablet */
+@media (min-width: 577px) and (max-width: 768px) {
+  .quote-modal-content {
+    max-width: 450px;
+  }
+}
+</style>
+
+<script>
+// ================= MODAL FUNCTIONS =================
+function openQuoteModal() {
+  document.getElementById('quoteModal').classList.add('active');
+  document.body.style.overflow = 'hidden'; // Prevent background scrolling
+  
+  // Auto-detect country code if not already set
+  const codeInput = document.getElementById('popupCountryCode');
+  if (!codeInput.value) {
+    fetch("https://ipapi.co/json/")
+      .then(res => res.json())
+      .then(data => {
+        codeInput.value = data.country_calling_code || "+1";
+      })
+      .catch(() => {
+        codeInput.value = "+1";
+      });
+  }
+}
+
+function closeQuoteModal() {
+  document.getElementById('quoteModal').classList.remove('active');
+  document.body.style.overflow = ''; // Restore scrolling
+  
+  // Set cookie to prevent showing again for 24 hours (optional)
+  document.cookie = "quotePopupShown=true; max-age=86400; path=/";
+}
+
+// Close on clicking outside
+document.getElementById('quoteModal').addEventListener('click', function(e) {
+  if (e.target === this) {
+    closeQuoteModal();
+  }
+});
+
+// Close on Escape key
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    closeQuoteModal();
+  }
+});
+
+// ================= AUTO-OPEN AFTER 3 SECONDS =================
+// Check if not already shown (using sessionStorage for this session only)
+// Remove the check if you want it to show every time page loads
+window.addEventListener('load', function() {
+  // Check if popup was already shown in this session
+  if (!sessionStorage.getItem('quotePopupShown')) {
+    setTimeout(function() {
+      openQuoteModal();
+      // Mark as shown for this session
+      sessionStorage.setItem('quotePopupShown', 'true');
+    }, 3000); // 3000 milliseconds = 3 seconds
+  }
+});
+
+// Optional: Reset the session storage (for testing)
+// sessionStorage.removeItem('quotePopupShown');
+
+// ================= SUPABASE INTEGRATION =================
+// Load Supabase if not already loaded
+if (typeof window.supabase === 'undefined') {
+  const script = document.createElement('script');
+  script.src = "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2";
+  script.onload = initPopupForm;
+  document.head.appendChild(script);
+} else {
+  initPopupForm();
+}
+
+function initPopupForm() {
+  const form = document.getElementById("quoteFormPopup");
+  if (!form) return;
+
+  const supabase = window.supabase.createClient(
+    "https://eiqpvuciihwmuznbsyob.supabase.co",
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVpcXB2dWNpaWh3bXV6bmJzeW9iIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjU2MDY1MDcsImV4cCI6MjA4MTE4MjUwN30.fY2QZkNa1nUB1UQxmV8r97WTpB32ocIiVXaHo1coB-c"
+  );
+
+  form.addEventListener("submit", async function(e) {
+    e.preventDefault();
+
+    // Combine phone
+    const fullPhone = 
+      document.getElementById("popupCountryCode").value + 
+      document.getElementById("popupPhone").value;
+    
+    document.getElementById("popupFullPhone").value = fullPhone;
+
+    const payload = {
+      name: document.getElementById("popupName").value,
+      email: document.getElementById("popupEmail").value,
+      full_phone: fullPhone,
+      service: document.getElementById("popupService").value
+    };
+
+    // Optional transport field (if exists)
+    const transportInput = document.querySelector('input[name="transport"]:checked');
+    if (transportInput) {
+      payload.transport = transportInput.value;
+    }
+
+    const { error } = await supabase
+      .from("appointments")
+      .insert([payload]);
+
+    if (error) {
+      console.error("Supabase error:", error);
+      alert("Error: " + error.message);
+    } else {
+      alert("✅ Thank you! Our team will contact you soon.");
+      form.reset();
+      closeQuoteModal();
+    }
+  });
+}
+window.addEventListener('load', function() {
+  setTimeout(function() {
+    openQuoteModal();
+  }, 3000);
+});
+</script>
+
 
 
 
@@ -217,6 +626,7 @@
         </div>
     </div>
     <!-- About End -->
+
 
 
     
@@ -653,6 +1063,8 @@
     <script src="js/main.js"></script>
 
 
+
+    
 </body>
 
 </html>
